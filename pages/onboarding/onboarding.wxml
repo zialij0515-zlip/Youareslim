@@ -1,0 +1,13 @@
+<view class="page">
+  <text class="eyebrow">开始第一天</text><view class="page-title">为自己建立一份<br/>温柔的轻减档案</view>
+  <view class="intro">数据只用于帮助你观察变化；体脂率为估算值，不替代专业测量。</view>
+  <view class="card form-card">
+    <view class="field"><text>怎么称呼你？</text><input value="{{form.nickname}}" data-key="nickname" bindinput="input" placeholder="例如：小满"/></view>
+    <view class="field"><text>性别</text><picker range="{{genderOptions}}" value="{{genderIndex}}" bindchange="gender"><view>{{genderOptions[genderIndex]}} ›</view></picker></view>
+    <view class="field"><text>年龄</text><input type="number" value="{{form.age}}" data-key="age" bindinput="input"/><text class="unit">岁</text></view>
+    <view class="field"><text>身高</text><input type="digit" value="{{form.height}}" data-key="height" bindinput="input"/><text class="unit">cm</text></view>
+    <view class="field"><text>当前体重</text><input type="digit" value="{{form.startWeight}}" data-key="startWeight" bindinput="input"/><text class="unit">kg</text></view>
+    <view class="field last"><text>目标体重</text><input type="digit" value="{{form.targetWeight}}" data-key="targetWeight" bindinput="input"/><text class="unit">kg</text></view>
+  </view>
+  <button class="primary-button" bindtap="submit">保存并开始记录</button>
+</view>

@@ -1,0 +1,10 @@
+page { background: #F8F6F1; color: #25342B; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; }
+button::after { border: none; }
+.page { min-height: 100vh; box-sizing: border-box; padding: 28rpx 32rpx 170rpx; }
+.card { background: #FFFEFA; border-radius: 32rpx; box-shadow: 0 14rpx 34rpx rgba(86, 111, 91, .08); }
+.eyebrow { color: #789080; font-size: 24rpx; letter-spacing: 1rpx; }
+.page-title { font-size: 48rpx; font-weight: 700; line-height: 1.25; }
+.muted { color: #849088; font-size: 26rpx; }
+.primary-button { background: #5E9B75; color: #fff; border-radius: 48rpx; font-size: 30rpx; font-weight: 600; line-height: 92rpx; }
+.ghost-button { background: #E6F0E7; color: #4F8567; border-radius: 48rpx; font-size: 28rpx; line-height: 84rpx; }
+.section-title { margin: 42rpx 0 20rpx; font-size: 34rpx; font-weight: 700; }
