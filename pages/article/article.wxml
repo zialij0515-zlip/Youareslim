@@ -1,0 +1,13 @@
+<view class="page">
+  <block wx:if="{{item}}">
+    <view class="hero">
+      <text class="a-title">{{item.name}}</text>
+      <text class="a-sum">{{item.summary}}</text>
+    </view>
+    <view class="card body">
+      <text class="para" wx:for="{{item.article}}" wx:for-item="p" wx:key="*this">{{p}}</text>
+    </view>
+    <view class="note">以上内容为通用科普，个体差异大，必要时请咨询专业医生或营养师。</view>
+  </block>
+  <view wx:else class="empty">未找到内容</view>
+</view>

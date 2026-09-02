@@ -1,0 +1,12 @@
+<view class="page">
+  <scroll-view scroll-y class="list">
+    <view class="card item" wx:for="{{list}}" wx:key="name" data-id="{{index}}" bindtap="open">
+      <view class="item-text">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-sum">{{item.summary}}</text>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+    <view class="list-foot">轻减日记 · 仅供参考，不替代专业建议</view>
+  </scroll-view>
+</view>

@@ -1,0 +1,8 @@
+.page { min-height: 100vh; box-sizing: border-box; padding: 28rpx 32rpx 60rpx; background: #F8F6F1; }
+.list { display: flex; flex-direction: column; gap: 20rpx; }
+.item { display: flex; align-items: center; gap: 20rpx; padding: 30rpx 28rpx; background: #FFFEFA; border-radius: 28rpx; box-shadow: 0 10rpx 26rpx rgba(86, 111, 91, .07); }
+.item-text { flex: 1; display: flex; flex-direction: column; gap: 10rpx; min-width: 0; }
+.item-name { font-size: 30rpx; font-weight: 700; color: #25342B; }
+.item-sum { font-size: 24rpx; color: #849088; line-height: 1.5; }
+.arrow { color: #B7C0B5; font-size: 40rpx; line-height: 1; flex: none; }
+.list-foot { text-align: center; color: #B7C0B5; font-size: 22rpx; margin-top: 16rpx; }

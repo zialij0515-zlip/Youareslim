@@ -9,19 +9,6 @@ const TYPE_META = {
 }
 const GRID_TYPES = ['breakfast', 'lunch', 'dinner', 'sport']
 
-const METHODS = [
-  { name: '16:8 间歇性断食', desc: '把每日进食窗口控制在 8 小时内，其余 16 小时只喝白水或无糖饮品，让身体有更多时间消耗储备。' },
-  { name: '低碳水饮食', desc: '减少精制米面与添加糖，增加蔬菜和优质蛋白，帮助稳定血糖、降低饥饿感。' },
-  { name: '韩女减肥法', desc: '以高蛋白 + 大量蔬菜 + 少量碳水为主，烹饪清淡少油，配合规律有氧，强调可长期坚持。' },
-  { name: '血型减肥法', desc: '按 ABO 血型建议饮食倾向（如 O 型偏高蛋白、A 型偏植物性），参考即可，不替代专业建议。' }
-]
-const SPORTS = [
-  { name: '快走', desc: '每天 30–45 分钟快走，门槛低、易坚持，是减脂入门的好选择。' },
-  { name: '跳绳', desc: '高效燃脂，约 10 分钟接近 30 分钟慢跑；膝盖不适时请减量或换项目。' },
-  { name: '游泳', desc: '全身低冲击运动，在保护关节的同时提升心肺耐力。' },
-  { name: '瑜伽', desc: '改善体态与睡眠，配合饮食更容易长期维持理想状态。' }
-]
-
 function greeting() {
   const h = new Date().getHours()
   if (h < 6) return '夜深了'
@@ -66,8 +53,8 @@ Page({
     startWeight: 0, progress: 0, continuousDays: 0,
     changeArrow: '', changeText: '--', changeClass: 'empty',
     grid: [], treatWeekCount: 0,
-    methods: METHODS, sports: SPORTS, myShare: '',
-    tipsOpen: false, tipTab: '', tipList: [], tipContent: ''
+    myShare: '',
+    tipsOpen: false, tipTab: '', tipContent: ''
   },
   onShow() { this.refresh() },
   refresh() {
@@ -124,7 +111,7 @@ Page({
     if (tab === 'share') {
       this.setData({ tipsOpen: true, tipTab: 'share', tipContent: this.data.myShare })
     } else {
-      this.setData({ tipsOpen: true, tipTab: tab, tipList: tab === 'methods' ? this.data.methods : this.data.sports })
+      wx.navigateTo({ url: `/pages/tipsList/tipsList?type=${tab}` })
     }
   },
   editShare(e) { this.setData({ tipContent: e.detail.value }) },
