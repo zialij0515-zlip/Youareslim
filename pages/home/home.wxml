@@ -5,7 +5,10 @@
       <text class="hello">{{greeting}}，{{nickname}}</text>
       <text class="muted">不求完美，记录就是在靠近自己。</text>
     </view>
-    <image class="mascot" src="/assets/mascot.png" mode="aspectFit"/>
+    <view class="mascot-wrap">
+      <image class="mascot" src="{{mascotSrc}}" mode="aspectFit"/>
+      <text class="mascot-switch" bindtap="nextMascot">换一换</text>
+    </view>
   </view>
 
   <!-- 今日体重卡：参考图样式 -->
