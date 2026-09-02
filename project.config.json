@@ -2,7 +2,15 @@
   "compileType": "miniprogram",
   "libVersion": "trial",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "design" },
+      { "type": "folder", "value": "UI-ref" },
+      { "type": "folder", "value": ".workbuddy" },
+      { "type": "folder", "value": "docs" },
+      { "type": "folder", "value": ".git" },
+      { "type": "regexp", "value": "\\.md$" },
+      { "type": "regexp", "value": "\\.log$" }
+    ],
     "include": []
   },
   "setting": {
