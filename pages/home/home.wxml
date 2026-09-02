@@ -34,7 +34,7 @@
   </view>
 
   <!-- 今日打卡 -->
-  <text class="section-title-sm checkin-title">今日打卡</text>
+  <view class="section-title-sm checkin-title">今日打卡</view>
   <view class="task-grid">
     <view class="card task {{item.done ? 'done' : ''}}" wx:for="{{grid}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
       <view class="task-icon-box" style="background:{{item.color}}15">

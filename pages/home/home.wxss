@@ -35,7 +35,7 @@
 
 /* 区块小标题：统一成减脂Tips的深炭黑粗体 */
 .section-title-sm { margin: 34rpx 0 24rpx; font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
-.checkin-title { margin: 110rpx 0 24rpx; }
+.checkin-title { margin: 86rpx 0 24rpx; }
 .tips-title { margin: 0; }
 
 /* 今日打卡 */
