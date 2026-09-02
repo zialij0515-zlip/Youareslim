@@ -2,11 +2,12 @@ const { getProfile, getBodyRecords, getCheckins, getAllCheckins, addBodyRecord, 
 const cloud = require('../../utils/cloud')
 
 const TYPE_META = {
-  breakfast: { label: '早餐', icon: '🥚' },
-  lunch: { label: '午餐', icon: '🥪' },
-  dinner: { label: '晚餐', icon: '🍲' }
+  breakfast: { label: '早餐', icon: 'toast', color: '#E8C28C' },
+  lunch: { label: '午餐', icon: 'salad', color: '#7DB98C' },
+  dinner: { label: '晚餐', icon: 'salad', color: '#5E9B75' },
+  sport: { label: '运动', icon: 'runner', color: '#4F8567' }
 }
-const MEAL_TYPES = ['breakfast', 'lunch', 'dinner']
+const GRID_TYPES = ['breakfast', 'lunch', 'dinner', 'sport']
 
 const METHODS = [
   { name: '16:8 间歇性断食', desc: '把每日进食窗口控制在 8 小时内，其余 16 小时只喝白水或无糖饮品，让身体有更多时间消耗储备。' },
@@ -64,7 +65,7 @@ Page({
     greeting: '', nickname: '', today: '', profile: {}, current: 0, target: 0,
     startWeight: 0, progress: 0, continuousDays: 0,
     changeArrow: '', changeText: '--', changeClass: 'empty',
-    meals: [], sport: null, treatWeekCount: 0,
+    grid: [], treatWeekCount: 0,
     methods: METHODS, sports: SPORTS, myShare: '',
     tipsOpen: false, tipTab: '', tipList: [], tipContent: ''
   },
@@ -86,12 +87,19 @@ Page({
     }
     const continuous = computeStreak(getAllCheckins())
     const checkins = getCheckins()
-    const meals = MEAL_TYPES.map(type => {
+    const grid = GRID_TYPES.map(type => {
       const c = checkins.find(x => x.type === type)
-      return { type, label: TYPE_META[type].label, icon: TYPE_META[type].icon, done: !!c, status: c ? '已完成' : '未完成' }
+      const meta = TYPE_META[type]
+      const isSport = type === 'sport'
+      return {
+        type, label: meta.label, icon: meta.icon, color: meta.color,
+        done: !!c,
+        sub: isSport
+          ? (c ? (c.note || '已记录') : '记录运动')
+          : (c ? '已完成' : '未完成'),
+        showCheck: !isSport && !!c
+      }
     })
-    const sportCheckin = checkins.find(x => x.type === 'sport')
-    const sport = sportCheckin ? { text: sportCheckin.note || '已记录' } : null
     const weekStart = weekStartStr()
     const treatWeekCount = getAllCheckins().filter(c => c.type === 'treat' && c.date >= weekStart).length
     this.setData({
@@ -99,7 +107,7 @@ Page({
       today: today(), profile, current, target: profile.targetWeight,
       startWeight: profile.startWeight, progress: pct,
       changeArrow, changeText, changeClass,
-      continuousDays: continuous, meals, sport, treatWeekCount, myShare: profile.myShare || ''
+      continuousDays: continuous, grid, treatWeekCount, myShare: profile.myShare || ''
     })
     this.loadCloud()
   },
