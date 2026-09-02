@@ -38,36 +38,8 @@
   <view class="task-grid">
     <view class="card task {{item.done ? 'done' : ''}}" wx:for="{{grid}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
       <view class="task-icon-box" style="background:{{item.color}}15">
-        <block wx:if="{{item.icon === 'toast'}}">
-          <svg viewBox="0 0 72 72" width="100%" height="100%">
-            <rect x="14" y="20" width="44" height="38" rx="10" fill="#F5E6C6"/>
-            <path d="M14 34 Q36 42 58 34 L58 52 Q36 58 14 52Z" fill="#E8C28C"/>
-            <rect x="20" y="14" width="32" height="8" rx="4" fill="#D4A76A"/>
-            <circle cx="26" cy="40" r="3" fill="#C6945C" opacity="0.6"/>
-            <circle cx="40" cy="46" r="2.5" fill="#C6945C" opacity="0.5"/>
-            <circle cx="48" cy="36" r="2" fill="#C6945C" opacity="0.5"/>
-          </svg>
-        </block>
-        <block wx:elif="{{item.icon === 'salad'}}">
-          <svg viewBox="0 0 72 72" width="100%" height="100%">
-            <circle cx="36" cy="40" r="22" fill="#F3F8E8"/>
-            <path d="M36 22 Q48 18 54 30 Q58 42 48 52 Q36 58 24 52 Q14 42 18 30 Q24 18 36 22Z" fill="#A8D699"/>
-            <circle cx="30" cy="36" r="4" fill="#F36B6B"/>
-            <circle cx="44" cy="34" r="3.5" fill="#F36B6B"/>
-            <circle cx="38" cy="46" r="3" fill="#F4C542"/>
-            <path d="M36 58 Q36 64 28 66" stroke="#7DB98C" stroke-width="3" fill="none" stroke-linecap="round"/>
-          </svg>
-        </block>
-        <block wx:elif="{{item.icon === 'runner'}}">
-          <svg viewBox="0 0 72 72" width="100%" height="100%">
-            <circle cx="36" cy="18" r="8" fill="#F5D0C5"/>
-            <path d="M28 32 L36 30 L44 34 L48 46" stroke="#4F8567" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M36 30 L30 44 L34 56" stroke="#4F8567" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M44 34 L52 30" stroke="#4F8567" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <path d="M30 44 L22 48" stroke="#4F8567" stroke-width="5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </block>
-      </view>
+      <image class="task-icon" src="/assets/icons/{{item.icon}}.svg" mode="aspectFit"/>
+    </view>
       <view class="task-info">
         <text class="task-label">{{item.label}}打卡</text>
         <text class="task-sub {{item.done ? 'done' : ''}}">{{item.sub}}</text>
@@ -81,13 +53,7 @@
 
   <view class="card task treat" data-type="treat" bindtap="record">
     <view class="task-icon-box" style="background:#E8927C15">
-      <svg viewBox="0 0 72 72" width="100%" height="100%">
-        <path d="M20 54 Q20 26 36 22 Q52 26 52 54Z" fill="#F9D5C8"/>
-        <rect x="18" y="50" width="36" height="8" rx="4" fill="#E8927C"/>
-        <path d="M36 22 Q34 12 40 10 Q44 14 42 20 Q46 16 50 20 Q48 26 42 24" fill="#F36B6B"/>
-        <circle cx="30" cy="38" r="3" fill="#F36B6B" opacity="0.7"/>
-        <circle cx="46" cy="42" r="2.5" fill="#F4C542" opacity="0.8"/>
-      </svg>
+      <image class="task-icon" src="/assets/icons/cake.svg" mode="aspectFit"/>
     </view>
     <view class="task-info">
       <text class="task-label">放纵餐打卡</text>
@@ -96,21 +62,24 @@
     <text class="arrow">›</text>
   </view>
 
-  <!-- 减脂tips -->
-  <text class="section-title-sm tips-title">减脂tips</text>
+  <!-- 减脂Tips -->
+  <view class="tips-head">
+    <text class="section-title-sm tips-title">减脂Tips</text>
+    <image class="tips-plant" src="/assets/icons/tips-plant.svg" mode="aspectFit"/>
+  </view>
   <view class="tips">
     <view class="card tip-entry" data-tab="methods" bindtap="openTip">
-      <text class="tip-emoji">📖</text>
+      <image class="tip-icon" src="/assets/icons/tip-methods.svg" mode="aspectFit"/>
       <view class="tip-text"><text class="tip-name">更多减脂方法</text><text class="tip-desc">血型减肥法、韩女减肥法…</text></view>
       <text class="tip-arrow">›</text>
     </view>
     <view class="card tip-entry" data-tab="sports" bindtap="openTip">
-      <text class="tip-emoji">🏃</text>
+      <image class="tip-icon" src="/assets/icons/tip-sports.svg" mode="aspectFit"/>
       <view class="tip-text"><text class="tip-name">更好的运动</text><text class="tip-desc">推荐运动，点击了解</text></view>
       <text class="tip-arrow">›</text>
     </view>
     <view class="card tip-entry" data-tab="share" bindtap="openTip">
-      <text class="tip-emoji">✍️</text>
+      <image class="tip-icon" src="/assets/icons/tip-share.svg" mode="aspectFit"/>
       <view class="tip-text"><text class="tip-name">我的减脂分享</text><text class="tip-desc">{{myShare ? myShare : '写下你的减脂心得'}}</text></view>
       <text class="tip-arrow">›</text>
     </view>

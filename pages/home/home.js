@@ -4,7 +4,7 @@ const cloud = require('../../utils/cloud')
 const TYPE_META = {
   breakfast: { label: '早餐', icon: 'toast', color: '#E8C28C' },
   lunch: { label: '午餐', icon: 'salad', color: '#7DB98C' },
-  dinner: { label: '晚餐', icon: 'salad', color: '#5E9B75' },
+  dinner: { label: '晚餐', icon: 'salad2', color: '#5E9B75' },
   sport: { label: '运动', icon: 'runner', color: '#4F8567' }
 }
 const GRID_TYPES = ['breakfast', 'lunch', 'dinner', 'sport']

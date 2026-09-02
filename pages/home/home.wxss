@@ -5,7 +5,7 @@
 .mascot { width: 132rpx; height: 132rpx; flex: none; border-radius: 24rpx; }
 
 /* 今日体重 hero */
-.hero { padding: 34rpx 32rpx 28rpx; display: flex; flex-direction: column; gap: 28rpx; }
+.hero { padding: 34rpx 32rpx 28rpx; display: flex; flex-direction: column; gap: 28rpx; background: #F0F6EF; }
 .hero-top { display: flex; align-items: flex-start; justify-content: space-between; }
 .hero-main { display: flex; flex-direction: column; gap: 10rpx; }
 .hero-label { color: #789080; font-size: 24rpx; }
@@ -34,13 +34,14 @@
 .bar-labels { display: flex; justify-content: space-between; color: #849088; font-size: 22rpx; }
 
 /* 区块小标题：炭黑降低透明、间距拉开 */
-.section-title-sm { margin: 48rpx 0 18rpx; font-size: 28rpx; font-weight: 600; color: rgba(37, 52, 43, 0.8); letter-spacing: 1rpx; }
-.tips-title { margin-top: 60rpx; }
+.section-title-sm { margin: 56rpx 0 22rpx; font-size: 28rpx; font-weight: 600; color: rgba(37, 52, 43, 0.8); letter-spacing: 1rpx; }
+.tips-title { margin: 0; }
 
 /* 今日打卡 */
 .task-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18rpx; }
 .task { padding: 18rpx 20rpx; min-height: 0; display: flex; align-items: center; gap: 18rpx; background: #FFFEFA; border: 1rpx solid #EDF1E9; border-radius: 28rpx; }
-.task-icon-box { width: 84rpx; height: 84rpx; border-radius: 22rpx; flex: none; display: flex; align-items: center; justify-content: center; padding: 14rpx; box-sizing: border-box; }
+.task-icon-box { width: 84rpx; height: 84rpx; border-radius: 22rpx; flex: none; display: flex; align-items: center; justify-content: center; padding: 14rpx; box-sizing: border-box; overflow: hidden; }
+.task-icon { width: 100%; height: 100%; }
 .task-info { flex: 1; display: flex; flex-direction: column; gap: 6rpx; min-width: 0; }
 .task-label { font-size: 26rpx; color: #25342B; font-weight: 500; letter-spacing: 0.5rpx; }
 .task-sub { font-size: 22rpx; color: #9BA7A0; }
@@ -51,10 +52,13 @@
 .task.treat { background: #FBF1EC; border-color: #F5DDD4; margin-top: 18rpx; }
 
 /* 减脂小Tips */
-.tips { display: flex; flex-direction: column; gap: 22rpx; margin-bottom: 20rpx; }
-.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 26rpx; }
-.tip-emoji { font-size: 44rpx; }
-.tip-text { flex: 1; display: flex; flex-direction: column; gap: 8rpx; }
+.tips-head { display: flex; align-items: center; justify-content: space-between; margin: 64rpx 0 24rpx; }
+.tips-title { font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
+.tips-plant { width: 96rpx; height: 96rpx; flex: none; border-radius: 20rpx; }
+.tips { display: flex; flex-direction: column; gap: 30rpx; margin-bottom: 24rpx; }
+.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; }
+.tip-icon { width: 64rpx; height: 64rpx; flex: none; }
+.tip-text { flex: 1; display: flex; flex-direction: column; gap: 12rpx; }
 .tip-name { font-size: 29rpx; font-weight: 700; color: #25342B; }
 .tip-desc { font-size: 23rpx; color: #849088; }
 .tip-arrow { color: #B7C0B5; font-size: 36rpx; }
