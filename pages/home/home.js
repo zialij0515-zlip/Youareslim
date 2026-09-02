@@ -47,15 +47,13 @@ function computeStreak(checkins) {
   return streak
 }
 
-const MASCOT_CANDIDATES = 9
-
 Page({
   data: {
     greeting: '', nickname: '', today: '', profile: {}, current: 0, target: 0,
     startWeight: 0, progress: 0, continuousDays: 0,
     changeArrow: '', changeText: '--', changeClass: 'empty',
     grid: [], treatWeekCount: 0,
-    myShare: '', mascotSrc: '/assets/mascot-candidates/mascot-cand-01.jpg', mascotIdx: 1,
+    myShare: '',
     tipsOpen: false, tipTab: '', tipContent: ''
   },
   onLoad() { this.refresh() },
@@ -144,9 +142,5 @@ Page({
     } catch (e) {
       console.warn('[home] 云端拉取失败，使用本地数据', e)
     }
-  },
-  nextMascot() {
-    const idx = this.data.mascotIdx >= MASCOT_CANDIDATES ? 1 : this.data.mascotIdx + 1
-    this.setData({ mascotIdx: idx, mascotSrc: `/assets/mascot-candidates/mascot-cand-${idx < 10 ? '0' + idx : idx}.jpg` })
   }
 })
