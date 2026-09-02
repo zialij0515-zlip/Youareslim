@@ -1,4 +1,42 @@
-<view class="page"><text class="eyebrow">{{today}}</text><view class="greeting"><text class="page-title">你好，{{profile.nickname}}</text><text class="muted">不求完美，记录就是在靠近自己。</text></view>
-<view class="card hero"><view><text class="hero-label">目标进度</text><text class="hero-value">{{body.weight || profile.startWeight}}<text> kg</text></text><text class="muted">目标 {{profile.targetWeight}} kg</text></view><view class="ring"><text>{{progress()}}%</text></view></view>
-<text class="section-title">今天的轻减清单</text><view class="task-grid"><view class="card task" wx:for="{{tasks}}" wx:key="type" data-type="{{item.type}}" bindtap="record"><text class="task-icon">{{item.type === 'sport' ? '◌' : item.type === 'treat' ? '♡' : '●'}}</text><text>{{item.label}}</text><text class="status {{item.done ? 'done':''}}">{{item.done ? '已记录' : '去打卡'}}</text></view></view>
-<view class="tip card"><text>今日小贴士</text><text class="muted">喝水、吃饭、活动和休息，都值得被好好记录。</text></view></view>
+<view class="page">
+  <text class="eyebrow">{{today}}</text>
+  <view class="greeting">
+    <text class="page-title">你好，{{profile.nickname}}</text>
+    <text class="muted">不求完美，记录就是在靠近自己。</text>
+  </view>
+
+  <swiper class="banner" indicator-dots indicator-active-color="#5E9B75" indicator-color="#CFD8D0" circular>
+    <swiper-item wx:for="{{banners}}" wx:key="type">
+      <view class="banner-card banner-{{item.type}}">
+        <text class="banner-label">{{item.label}}</text>
+        <text class="banner-main">{{item.main}}</text>
+        <text class="banner-sub">{{item.sub}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="card hero">
+    <view class="hero-left">
+      <text class="hero-label">目标进度</text>
+      <text class="hero-value">{{body.weight || profile.startWeight}}<text class="unit"> kg</text></text>
+      <text class="muted">目标 {{profile.targetWeight}} kg</text>
+    </view>
+    <view class="ring" style="background: conic-gradient(#5E9B75 {{progress}}%, #E4EEE5 0);">
+      <view class="ring-hole"><text class="ring-text">{{progress}}%</text></view>
+    </view>
+  </view>
+
+  <text class="section-title">今天的轻减清单</text>
+  <view class="task-grid">
+    <view class="card task" wx:for="{{tasks}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
+      <view class="task-icon {{item.done ? 'done' : ''}}">{{item.done ? '✓' : '○'}}</view>
+      <text class="task-label">{{item.label}}</text>
+      <text class="status {{item.done ? 'done' : ''}}">{{item.done ? '已记录' : '去打卡'}}</text>
+    </view>
+  </view>
+
+  <view class="tip card">
+    <text class="tip-title">今日鼓励</text>
+    <text class="muted">{{encouragement}}</text>
+  </view>
+</view>

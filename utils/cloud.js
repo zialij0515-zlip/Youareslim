@@ -74,4 +74,46 @@ async function syncBodyRecord(record) {
   }
 }
 
-module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord }
+// 建档信息同步到云端（集合 users，按 openid 作为文档 id，幂等覆盖）
+async function syncProfile(profile) {
+  const db = getDb()
+  if (!db) return { synced: false }
+  try {
+    const openid = await getOpenid()
+    if (!openid) return { synced: false }
+    await db.collection('users').doc(openid).set({ data: { ...profile, openid, updatedAt: Date.now() } })
+    return { synced: true }
+  } catch (e) {
+    console.warn('[cloud] 同步档案失败', e)
+    return { synced: false, error: e }
+  }
+}
+
+// 拉取云端最新一条身体记录（本地缺失时用于跨设备恢复），失败返回 null
+async function getLatestBodyRecord() {
+  const db = getDb()
+  if (!db) return null
+  try {
+    const res = await db.collection('body_records').get()
+    const list = (res.data || []).slice().sort((a, b) => (a.date < b.date ? 1 : -1))
+    return list[0] || null
+  } catch (e) {
+    console.warn('[cloud] 读取身体记录失败', e)
+    return null
+  }
+}
+
+// 拉取云端当日打卡（本地缺失时用于跨设备恢复），失败返回空数组
+async function getTodayCheckins(date) {
+  const db = getDb()
+  if (!db) return []
+  try {
+    const res = await db.collection('checkins').get()
+    return (res.data || []).filter(c => c.date === date)
+  } catch (e) {
+    console.warn('[cloud] 读取打卡失败', e)
+    return []
+  }
+}
+
+module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins }
