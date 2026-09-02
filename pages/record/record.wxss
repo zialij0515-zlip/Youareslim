@@ -46,9 +46,9 @@
 
 /* 数据更新：整体更紧凑，更新按钮缩成小红框 */
 .data-section-title { margin-top: 34rpx; }
-.weight { padding: 8rpx 12rpx; display: flex; align-items: center; gap: 8rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
+.weight { padding: 18rpx 20rpx; display: flex; align-items: center; gap: 12rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
 .weight-label { font-size: 28rpx; color: #6B4F4D; font-weight: 600; flex: none; }
-.weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 6rpx; }
-.weight-input-wrap input { text-align: right; font-size: 30rpx; font-weight: 700; color: #5D4A49; width: 100rpx; }
+.weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-start; gap: 8rpx; }
+.weight-input-wrap input { text-align: left; font-size: 30rpx; font-weight: 700; color: #5D4A49; width: 120rpx; }
 .weight-unit { font-size: 24rpx; color: #8D7876; }
 button.update-button { width: auto; min-width: 52rpx; padding: 0 12rpx !important; margin: 0 !important; font-size: 24rpx; font-weight: 600; line-height: 34rpx; border-radius: 18rpx; background: #EAD4D2 !important; color: #7A5A58; }
