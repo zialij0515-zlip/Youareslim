@@ -1,42 +1,112 @@
 <view class="page">
-  <text class="eyebrow">{{today}}</text>
+  <!-- 问候区：按时间变化 + 可爱漫画人物 -->
   <view class="greeting">
-    <text class="page-title">你好，{{profile.nickname}}</text>
-    <text class="muted">不求完美，记录就是在靠近自己。</text>
+    <view class="greeting-text">
+      <text class="hello">{{greeting}}，{{nickname}}</text>
+      <text class="muted">不求完美，记录就是在靠近自己。</text>
+    </view>
+    <view class="mascot">
+      <svg viewBox="0 0 100 100" width="100%" height="100%">
+        <circle cx="50" cy="63" r="30" fill="#9CC7AC"/>
+        <path d="M50 36 C50 20 66 16 72 23 C65 36 54 38 50 36Z" fill="#5E9B75"/>
+        <path d="M50 36 C50 23 37 19 31 26 C38 38 48 40 50 36Z" fill="#7DB98C"/>
+        <circle cx="42" cy="61" r="3.6" fill="#2F4234"/>
+        <circle cx="58" cy="61" r="3.6" fill="#2F4234"/>
+        <path d="M44 71 Q50 77 56 71" stroke="#2F4234" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <circle cx="37" cy="69" r="3" fill="#F4B6B0" opacity="0.75"/>
+        <circle cx="63" cy="69" r="3" fill="#F4B6B0" opacity="0.75"/>
+      </svg>
+    </view>
   </view>
 
-  <swiper class="banner" indicator-dots indicator-active-color="#5E9B75" indicator-color="#CFD8D0" circular>
-    <swiper-item wx:for="{{banners}}" wx:key="type">
-      <view class="banner-card banner-{{item.type}}">
-        <text class="banner-label">{{item.label}}</text>
-        <text class="banner-main">{{item.main}}</text>
-        <text class="banner-sub">{{item.sub}}</text>
-      </view>
-    </swiper-item>
-  </swiper>
-
+  <!-- 目标进度（体重/目标/已下降/连续打卡 + 进度条） -->
   <view class="card hero">
-    <view class="hero-left">
-      <text class="hero-label">目标进度</text>
-      <text class="hero-value">{{body.weight || profile.startWeight}}<text class="unit"> kg</text></text>
-      <text class="muted">目标 {{profile.targetWeight}} kg</text>
+    <view class="hero-row">
+      <view class="hero-block"><text class="hero-label">当前体重</text><text class="hero-value">{{current}}<text class="unit">kg</text></text></view>
+      <view class="hero-block"><text class="hero-label">目标体重</text><text class="hero-value">{{target}}<text class="unit">kg</text></text></view>
+      <view class="hero-block"><text class="hero-label">已下降</text><text class="hero-value down">{{weightLost}}<text class="unit">kg</text></text></view>
+      <view class="hero-block"><text class="hero-label">连续打卡</text><text class="hero-value">{{continuousDays}}<text class="unit">天</text></text></view>
     </view>
-    <view class="ring" style="background: conic-gradient(#5E9B75 {{progress}}%, #E4EEE5 0);">
-      <view class="ring-hole"><text class="ring-text">{{progress}}%</text></view>
+    <view class="bar">
+      <view class="bar-fill" style="width:{{progress}}%"></view>
+      <view class="bar-dot" style="left:{{progress}}%"></view>
+    </view>
+    <view class="bar-labels">
+      <text>初始 {{startWeight}}kg</text>
+      <text class="bar-pct">{{progress}}%</text>
+      <text>目标 {{target}}kg</text>
     </view>
   </view>
 
-  <text class="section-title">今天的轻减清单</text>
+  <!-- 今日打卡 -->
+  <text class="section-title">今日打卡</text>
   <view class="task-grid">
-    <view class="card task" wx:for="{{tasks}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
-      <view class="task-icon {{item.done ? 'done' : ''}}">{{item.done ? '✓' : '○'}}</view>
-      <text class="task-label">{{item.label}}</text>
-      <text class="status {{item.done ? 'done' : ''}}">{{item.done ? '已记录' : '去打卡'}}</text>
+    <view class="card task" wx:for="{{meals}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
+      <view class="task-top">
+        <text class="task-icon">{{item.icon}}</text>
+        <text class="status {{item.done ? 'done' : ''}}">{{item.status}}</text>
+      </view>
+      <text class="task-label">{{item.label}}打卡</text>
     </view>
   </view>
 
-  <view class="tip card">
-    <text class="tip-title">今日鼓励</text>
-    <text class="muted">{{encouragement}}</text>
+  <view class="card task line" data-type="sport" bindtap="record">
+    <text class="task-icon lg">🏃</text>
+    <view class="task-body">
+      <text class="task-label">运动打卡</text>
+      <text class="task-sub">{{sport ? sport.text : '记录时长或项目'}}</text>
+    </view>
+    <text class="status {{sport ? 'done' : ''}}">{{sport ? '已打卡' : '去打卡'}}</text>
+  </view>
+
+  <view class="card task line treat" data-type="treat" bindtap="record">
+    <text class="task-icon lg">🍰</text>
+    <view class="task-body">
+      <text class="task-label">放纵餐打卡</text>
+      <text class="task-sub">本周已打卡 {{treatWeekCount}} 次</text>
+    </view>
+    <text class="status treat-tag">本周 {{treatWeekCount}} 次</text>
+  </view>
+
+  <!-- 了解更多减脂小Tips -->
+  <text class="section-title">了解更多减脂小Tips</text>
+  <view class="tips">
+    <view class="card tip-entry" data-tab="methods" bindtap="openTip">
+      <text class="tip-emoji">📖</text>
+      <view class="tip-text"><text class="tip-name">更多减脂方法</text><text class="tip-desc">血型减肥法、韩女减肥法…</text></view>
+      <text class="tip-arrow">›</text>
+    </view>
+    <view class="card tip-entry" data-tab="sports" bindtap="openTip">
+      <text class="tip-emoji">🏃</text>
+      <view class="tip-text"><text class="tip-name">更好的运动</text><text class="tip-desc">推荐运动，点击了解</text></view>
+      <text class="tip-arrow">›</text>
+    </view>
+    <view class="card tip-entry" data-tab="share" bindtap="openTip">
+      <text class="tip-emoji">✍️</text>
+      <view class="tip-text"><text class="tip-name">我的减脂分享</text><text class="tip-desc">{{myShare ? myShare : '写下你的减脂心得'}}</text></view>
+      <text class="tip-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 弹层：方法/运动列表 或 我的分享编辑 -->
+  <view class="mask" wx:if="{{tipsOpen}}" bindtap="closeTip">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-head">
+        <text class="sheet-title">{{tipTab === 'methods' ? '更多减脂方法' : (tipTab === 'sports' ? '更好的运动' : '我的减脂分享')}}</text>
+        <text class="sheet-close" bindtap="closeTip">✕</text>
+      </view>
+      <block wx:if="{{tipTab === 'methods' || tipTab === 'sports'}}">
+        <scroll-view scroll-y class="sheet-list">
+          <view class="sheet-item" wx:for="{{tipList}}" wx:key="name">
+            <text class="si-name">{{item.name}}</text>
+            <text class="si-desc">{{item.desc}}</text>
+          </view>
+        </scroll-view>
+      </block>
+      <block wx:else>
+        <textarea class="share-input" value="{{tipContent}}" bindinput="editShare" placeholder="写下你的减脂心得，分享给未来的自己" maxlength="300"/>
+        <button class="primary-button" bindtap="saveShare">保存</button>
+      </block>
+    </view>
   </view>
 </view>
