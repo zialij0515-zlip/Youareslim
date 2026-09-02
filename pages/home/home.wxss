@@ -35,7 +35,7 @@
 
 /* 区块小标题：统一成减脂Tips的深炭黑粗体 */
 .section-title-sm { margin: 34rpx 0 24rpx; font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
-.checkin-title { margin: 34rpx 0 24rpx; }
+.checkin-title { margin: 62rpx 0 24rpx; }
 .tips-title { margin: 0; }
 
 /* 今日打卡 */
@@ -56,7 +56,7 @@
 .tips-head { display: flex; align-items: center; margin: 34rpx 0 24rpx; }
 .tips-title { font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
 .tips { display: flex; flex-direction: column; gap: 24rpx; margin-bottom: 24rpx; }
-.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; background: #F3F8FA; border: 1rpx solid #EAF0F3; box-shadow: none; }
+.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; background: #F8FBFC; border: 1rpx solid #F1F5F7; box-shadow: none; }
 .tip-icon { width: 64rpx; height: 64rpx; flex: none; }
 .tip-text { flex: 1; display: flex; flex-direction: column; gap: 10rpx; }
 .tip-name { font-size: 29rpx; font-weight: 700; color: #2A4C55; }
