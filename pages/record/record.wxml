@@ -1,5 +1,4 @@
 <view class="page">
-  <text class="eyebrow">记录不是约束，是看见自己</text>
   <view class="page-title record-title">今天发生了什么？</view>
 
   <view class="type-row">
@@ -9,30 +8,40 @@
   <view class="card form">
     <view class="field-block">
       <text class="field-title">添加照片</text>
-      <button class="image-button" bindtap="chooseImage">＋ 添加照片（最多 3 张）</button>
-      <view class="image-list" wx:if="{{images.length}}">
-        <image wx:for="{{images}}" wx:key="*this" class="preview-thumb" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="previewImage"/>
+      <view class="image-row">
+        <block wx:if="{{images.length}}">
+          <image wx:for="{{images}}" wx:key="*this" class="photo-thumb" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="previewImage"/>
+        </block>
+        <block wx:else>
+          <image class="photo-thumb sample" src="/assets/record/food1.png" mode="aspectFill"/>
+          <image class="photo-thumb sample" src="/assets/record/food2.png" mode="aspectFill"/>
+        </block>
+        <view class="add-photo" bindtap="chooseImage">
+          <text class="add-icon">＋</text>
+          <text class="add-text">添加照片</text>
+        </view>
       </view>
-      <text class="image-count" wx:if="{{images.length}}">已选择 {{images.length}} 张图片</text>
     </view>
 
     <view class="field-block">
       <text class="field-title">文字记录</text>
-      <textarea placeholder="记录食物、心情、运动内容或今天的感受…" value="{{note}}" data-key="note" bindinput="input" maxlength="240"/>
+      <textarea placeholder="记录食物和心情" value="{{note}}" data-key="note" bindinput="input" maxlength="120"/>
     </view>
 
     <view class="field-block">
-      <text class="field-title">{{activeType==='sport'?'预估消耗':'预估热量'}}</text>
-      <view class="estimate">
-        <input type="number" value="{{calories}}" data-key="calories" bindinput="input"/>
-        <text class="estimate-unit">kcal</text>
+      <text class="field-title">今日感受</text>
+      <view class="mood-row">
+        <view wx:for="{{moods}}" wx:key="key" class="mood {{mood===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="chooseMood">
+          <image class="mood-icon" src="{{item.icon}}" mode="aspectFit"/>
+          <text class="mood-name">{{item.name}}</text>
+        </view>
       </view>
     </view>
   </view>
 
-  <button class="primary-button save-button" bindtap="saveCheckin">保存这次记录</button>
+  <button class="primary-button save-button" bindtap="saveCheckin">保存记录</button>
 
-  <view class="section-title">本周完成率</view>
+  <view class="section-title weekly-title">本周完成率</view>
   <view class="card weekly-rate">
     <view class="rate-item">
       <view class="ring-wrap">
@@ -54,7 +63,7 @@
   <view class="card weight">
     <text class="weight-label">目前体重</text>
     <view class="weight-input-wrap">
-      <input type="digit" placeholder="例如 60.5" value="{{weight}}" data-key="weight" bindinput="input"/>
+      <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input"/>
       <text class="weight-unit">kg</text>
     </view>
     <button class="ghost-button update-button" bindtap="saveWeight">更新</button>

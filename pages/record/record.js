@@ -1,11 +1,11 @@
-const { today, addCheckin, addBodyRecord, getProfile, getAllCheckins } = require('../../utils/store')
-const { bmi, bodyFat, calorieEstimate } = require('../../utils/metrics')
+const { today, addCheckin, addBodyRecord, getProfile, getBodyRecords, getAllCheckins } = require('../../utils/store')
+const { bmi, bodyFat } = require('../../utils/metrics')
 const { uploadImages, syncCheckin, syncBodyRecord, enabled } = require('../../utils/cloud')
 Page({
-  data: { activeType:'breakfast', typeOptions:[{key:'breakfast',name:'早餐'},{key:'lunch',name:'午餐'},{key:'dinner',name:'晚餐'},{key:'sport',name:'运动'},{key:'treat',name:'放纵餐'}], note:'', calories:350, images:[], weight:'', mealRate:0, sportRate:0 },
-  onLoad(){ this.refreshEstimate(); this.computeWeekStats() },
-  chooseType(e){ this.setData({activeType:e.currentTarget.dataset.key},()=>this.refreshEstimate()) },
-  refreshEstimate(){ this.setData({calories:calorieEstimate(this.data.activeType,'normal')}) },
+  data: { activeType:'breakfast', typeOptions:[{key:'breakfast',name:'早餐'},{key:'lunch',name:'午餐'},{key:'dinner',name:'晚餐'},{key:'sport',name:'运动'},{key:'treat',name:'放纵餐'}], moods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], mood:'good', note:'', images:[], weight:'', mealRate:0, sportRate:0 },
+  onLoad(){ this.computeWeekStats(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w)}) } },
+  chooseType(e){ this.setData({activeType:e.currentTarget.dataset.key}) },
+  chooseMood(e){ this.setData({mood:e.currentTarget.dataset.key}) },
   input(e){ this.setData({[e.currentTarget.dataset.key]:e.detail.value}) },
   chooseImage(){ wx.chooseMedia({count:3,mediaType:['image'],success:res=>this.setData({images:res.tempFiles.map(f=>f.tempFilePath)})}) },
   previewImage(e){ wx.previewImage({urls:this.data.images,current:this.data.images[e.currentTarget.dataset.idx]}) },
@@ -48,8 +48,8 @@ Page({
       ctx.scale(dpr,dpr)
       const cx=width/2
       const cy=height/2
-      const radius=Math.min(cx,cy)-10
-      const lineWidth=14
+      const radius=Math.min(cx,cy)-8
+      const lineWidth=12
       ctx.clearRect(0,0,width,height)
       ctx.beginPath()
       ctx.arc(cx,cy,radius,0,2*Math.PI)
@@ -65,6 +65,6 @@ Page({
       ctx.stroke()
     })
   },
-  async saveCheckin(){ const type=this.data.activeType; if (type === 'sport' && !this.data.note) return wx.showToast({title:'请写下运动内容或时长',icon:'none'}); const record={date:today(),type,calories:Number(this.data.calories)||0,note:this.data.note,images:this.data.images}; addCheckin(record); this.setData({note:'',images:[]}); this.computeWeekStats(); if(!enabled()) return wx.showToast({title:'已保存到本地'}); wx.showLoading({title:'正在同步'}); try { record.images=await uploadImages(record.images); await syncCheckin(record); wx.showToast({title:'已保存并同步'}) } catch(error) { console.warn('打卡同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } finally { wx.hideLoading() } },
-  async saveWeight(){ const weight=Number(this.data.weight); const p=getProfile(); if(!weight) return wx.showToast({title:'请输入有效体重',icon:'none'}); const bmiValue=bmi(weight,p.height); const record={date:today(),weight,bmi:bmiValue,bodyFat:bodyFat({gender:p.gender,age:p.age,bmiValue})}; addBodyRecord(record); this.setData({weight:''}); if(!enabled()) return wx.showToast({title:'身体数据已更新'}); try { await syncBodyRecord(record); wx.showToast({title:'已更新并同步'}) } catch(error) { console.warn('身体数据同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } }
+  async saveCheckin(){ const type=this.data.activeType; if (type === 'sport' && !this.data.note) return wx.showToast({title:'请写下运动内容或时长',icon:'none'}); const record={date:today(),type,mood:this.data.mood,note:this.data.note,images:this.data.images}; addCheckin(record); this.setData({note:'',images:[],mood:'good'}); this.computeWeekStats(); if(!enabled()) return wx.showToast({title:'已保存到本地'}); wx.showLoading({title:'正在同步'}); try { record.images=await uploadImages(record.images); await syncCheckin(record); wx.showToast({title:'已保存并同步'}) } catch(error) { console.warn('打卡同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } finally { wx.hideLoading() } },
+  async saveWeight(){ const weight=Number(this.data.weight); const p=getProfile(); if(!weight) return wx.showToast({title:'请输入有效体重',icon:'none'}); const bmiValue=bmi(weight,p.height); const record={date:today(),weight,bmi:bmiValue,bodyFat:bodyFat({gender:p.gender,age:p.age,bmiValue})}; addBodyRecord(record); if(!enabled()) return wx.showToast({title:'身体数据已更新'}); try { await syncBodyRecord(record); wx.showToast({title:'已更新并同步'}) } catch(error) { console.warn('身体数据同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } }
 })
