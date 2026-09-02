@@ -6,6 +6,7 @@ Page({
   onLoad() { const p = getProfile(); this.setData({ form: p, genderIndex: p.gender === 'male' ? 1 : 0 }); if (p.onboardingComplete) wx.switchTab({ url: '/pages/home/home' }) },
   input(e) { this.setData({ [`form.${e.currentTarget.dataset.key}`]: e.detail.value }) },
   gender(e) { this.setData({ genderIndex: Number(e.detail.value), 'form.gender': Number(e.detail.value) ? 'male' : 'female' }) },
+  dateChange(e) { this.setData({ 'form.targetDate': e.detail.value }) },
   submit() {
     const f = this.data.form; const required = ['age','height','startWeight','targetWeight'];
     if (required.some(key => !Number(f[key]))) return wx.showToast({ title: '请补全有效的身体数据', icon: 'none' })
