@@ -21,24 +21,32 @@
     <text class="muted">{{note}}</text>
   </view>
 
-  <text class="section-title">体重趋势</text>
-  <view class="card chart-card">
-    <view wx:if="{{points.length}}" class="chart">
-      <view wx:for="{{points}}" wx:key="date" class="point" style="left:{{item.left}}%;bottom:{{item.bottom}}%;">
-        <text class="point-weight">{{item.weight}}</text>
-      </view>
+  <view class="toolbar">
+    <view class="segment">
+      <view wx:for="{{metricOptions}}" wx:key="key" class="seg {{metricKey===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="changeMetric">{{item.name}}</view>
     </view>
-    <view wx:else class="empty">记录体重后，这里会生成你的趋势图</view>
+    <view class="segment right">
+      <view wx:for="{{rangeOptions}}" wx:key="key" class="seg small {{rangeKey===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="changeRange">{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="card chart-card">
+    <canvas type="2d" id="chart" class="chart"></canvas>
+    <view wx:if="{{!hasData}}" class="empty">这个时间段还没有数据，先去记录吧～</view>
   </view>
 
   <text class="section-title">最近 7 次身体记录</text>
   <view class="card trend">
-    <view wx:if="{{records.length}}" wx:for="{{records}}" wx:key="date" class="row">
-      <text class="row-date">{{item.date}}</text>
-      <text class="row-weight">{{item.weight}} kg</text>
-      <text class="row-bmi">BMI {{item.bmi}}</text>
-    </view>
-    <view wx:else class="empty">暂无身体数据</view>
+    <block wx:if="{{records.length}}">
+      <view wx:for="{{records}}" wx:key="date" class="row">
+        <text class="row-date">{{item.date}}</text>
+        <text class="row-weight">{{item.weight}} kg</text>
+        <text class="row-bmi">BMI {{item.bmi}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty">暂无身体数据</view>
+    </block>
   </view>
 
   <view class="card disclosure">
