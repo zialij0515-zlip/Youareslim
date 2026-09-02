@@ -1,3 +1,62 @@
-<view class="page"><text class="eyebrow">记录不是约束，是看见自己</text><view class="page-title">今天发生了什么？</view><view class="type-row"><view wx:for="{{typeOptions}}" wx:key="key" class="type {{activeType===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="chooseType">{{item.name}}</view></view>
-<view class="card form"><text class="field-title">份量</text><view class="chips"><view wx:for="{{portions}}" wx:key="key" class="chip {{portion===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="choosePortion">{{item.name}}</view></view><view class="estimate"><text>{{activeType==='sport'?'预估消耗':'预估热量'}}</text><input type="number" value="{{calories}}" data-key="calories" bindinput="input"/><text>kcal</text></view><textarea placeholder="记录食物、心情、运动内容或今天的感受…" value="{{note}}" data-key="note" bindinput="input" maxlength="240"/><button class="image-button" bindtap="chooseImage">＋ 添加照片（最多 3 张）</button><view class="image-count" wx:if="{{images.length}}">已选择 {{images.length}} 张图片</view></view><button class="primary-button" bindtap="saveCheckin">保存这次记录</button>
-<text class="section-title">更新身体数据</text><view class="card weight"><text>今日体重</text><input type="digit" placeholder="例如 60.5" value="{{weight}}" data-key="weight" bindinput="input"/><text>kg</text><button class="ghost-button" bindtap="saveWeight">更新</button></view></view>
+<view class="page">
+  <text class="eyebrow">记录不是约束，是看见自己</text>
+  <view class="page-title record-title">今天发生了什么？</view>
+
+  <view class="type-row">
+    <view wx:for="{{typeOptions}}" wx:key="key" class="type {{activeType===item.key?'selected':''}}" data-key="{{item.key}}" bindtap="chooseType">{{item.name}}</view>
+  </view>
+
+  <view class="card form">
+    <view class="field-block">
+      <text class="field-title">添加照片</text>
+      <button class="image-button" bindtap="chooseImage">＋ 添加照片（最多 3 张）</button>
+      <view class="image-list" wx:if="{{images.length}}">
+        <image wx:for="{{images}}" wx:key="*this" class="preview-thumb" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="previewImage"/>
+      </view>
+      <text class="image-count" wx:if="{{images.length}}">已选择 {{images.length}} 张图片</text>
+    </view>
+
+    <view class="field-block">
+      <text class="field-title">文字记录</text>
+      <textarea placeholder="记录食物、心情、运动内容或今天的感受…" value="{{note}}" data-key="note" bindinput="input" maxlength="240"/>
+    </view>
+
+    <view class="field-block">
+      <text class="field-title">{{activeType==='sport'?'预估消耗':'预估热量'}}</text>
+      <view class="estimate">
+        <input type="number" value="{{calories}}" data-key="calories" bindinput="input"/>
+        <text class="estimate-unit">kcal</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="primary-button save-button" bindtap="saveCheckin">保存这次记录</button>
+
+  <view class="section-title">本周完成率</view>
+  <view class="card weekly-rate">
+    <view class="rate-item">
+      <view class="ring-wrap">
+        <canvas type="2d" id="mealRing" class="ring-canvas"></canvas>
+        <text class="ring-percent">{{mealRate}}%</text>
+      </view>
+      <text class="ring-label">餐食打卡</text>
+    </view>
+    <view class="rate-item">
+      <view class="ring-wrap">
+        <canvas type="2d" id="sportRing" class="ring-canvas"></canvas>
+        <text class="ring-percent">{{sportRate}}%</text>
+      </view>
+      <text class="ring-label">运动打卡</text>
+    </view>
+  </view>
+
+  <view class="section-title data-section-title">数据更新</view>
+  <view class="card weight">
+    <text class="weight-label">目前体重</text>
+    <view class="weight-input-wrap">
+      <input type="digit" placeholder="例如 60.5" value="{{weight}}" data-key="weight" bindinput="input"/>
+      <text class="weight-unit">kg</text>
+    </view>
+    <button class="ghost-button update-button" bindtap="saveWeight">更新</button>
+  </view>
+</view>
