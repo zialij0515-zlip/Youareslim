@@ -8,20 +8,20 @@
 ## 1. 已落地的代码改动
 
 - `utils/cloud.js`：`ENV_ID` 已填入；`cloud.init()` 幂等初始化（app.js 统一调用）。
-- `utils/cloud.js`：新增 `getOpenid()`，调用 `login` 云函数拿 openid 并缓存。
+- `utils/cloud.js`：新增 `getOpenid()`，调用 `slim-login` 云函数拿 openid 并缓存。
 - `utils/cloud.js`：`uploadImages()` 路径改为按用户隔离 `checkins/{openid}/{date}_{ts}_{idx}.jpg`。
 - `app.js`：移除硬编码 env，改用 `cloud.init()` 单一来源。
-- 云函数 `cloud1-d1g0on3869c3170d5/login`：返回调用方 openid。
-- 云函数 `cloud1-d1g0on3869c3170d5/init`：批量创建 5 个集合（见步骤 2）。
+- 云函数 `cloud1-d1g0on3869c3170d5/slim-login`：返回调用方 openid。
+- 云函数 `cloud1-d1g0on3869c3170d5/slim-init`：批量创建 5 个集合（见步骤 2）。
 
 ---
 
 ## 2. 部署云函数并建集合（需在微信开发者工具里点一下）
 
 1. 打开本项目 → 左侧「云开发」→ 确认环境 `cloud1-d1g0on3869c3170d5` 已存在。
-2. 在资源管理器 `cloud1-d1g0on3869c3170d5/login` 目录上 **右键 → 上传并部署（云端安装依赖）**。
-3. 同样对 `cloud1-d1g0on3869c3170d5/init` 右键 **上传并部署**。
-4. 上传完成后，在云函数 `init` 上 **右键 → 测试 / 运行一次**（或本地调试调用），触发建集合。
+2. 在资源管理器 `cloud1-d1g0on3869c3170d5/slim-login` 目录上 **右键 → 上传并部署（云端安装依赖）**。
+3. 同样对 `cloud1-d1g0on3869c3170d5/slim-init` 右键 **上传并部署**。
+4. 上传完成后，在云函数 `slim-init` 上 **右键 → 测试 / 运行一次**（或本地调试调用），触发建集合。
    - 返回 `{ ok: true, results: [...] }` 即成功；已存在的集合会标记为 `exists`，可忽略。
 
 > 若不想用云函数，也可在「云开发 - 数据库」手动新建 5 个集合：`users` / `body_records` / `checkins` / `daily_summary` / `posters`。
@@ -55,4 +55,4 @@
 
 - 弱网重试、断网提示、上传失败兜底（已走本地记录，云端失败不影响本地）。
 - 重复提交防护、跨用户数据隔离验证、存储文件权限。
-- 首次进入能拿到 openid（login 云函数正常返回）。
+- 首次进入能拿到 openid（slim-login 云函数正常返回）。

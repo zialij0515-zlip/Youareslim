@@ -24,7 +24,7 @@ async function getOpenid(force = false) {
   if (_openid && !force) return _openid
   if (!enabled()) return ''
   try {
-    const res = await wx.cloud.callFunction({ name: 'login' })
+    const res = await wx.cloud.callFunction({ name: 'slim-login' })
     _openid = (res.result && res.result.openid) || ''
   } catch (e) {
     console.warn('[cloud] 获取 openid 失败，图片将以 anon 隔离', e)

@@ -1,7 +1,7 @@
 {
-  "name": "login",
+  "name": "slim-init",
   "version": "1.0.0",
-  "description": "返回调用方 openid，用于数据/图片按用户隔离",
+  "description": "批量创建轻减日记所需的云数据库集合",
   "main": "index.js",
   "dependencies": {
     "wx-server-sdk": "latest"
