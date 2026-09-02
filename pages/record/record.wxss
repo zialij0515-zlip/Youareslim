@@ -20,32 +20,35 @@
 .add-text { color: #C4A57F; font-size: 24rpx; }
 
 /* 文字记录 */
-.form textarea { background: #F8F8F4; width: 100%; min-height: 120rpx; box-sizing: border-box; padding: 20rpx; border-radius: 20rpx; font-size: 28rpx; }
+.form textarea { background: #F8F8F4; width: 100%; min-height: 92rpx; box-sizing: border-box; padding: 18rpx 20rpx; border-radius: 20rpx; font-size: 28rpx; line-height: 1.4; }
 
 /* 今日感受 */
 .mood-row { display: flex; justify-content: space-around; align-items: center; }
-.mood { display: flex; flex-direction: column; align-items: center; gap: 10rpx; padding: 16rpx 20rpx; border-radius: 20rpx; }
+.mood { display: flex; flex-direction: column; align-items: center; gap: 8rpx; padding: 10rpx 14rpx; border-radius: 20rpx; }
 .mood.selected { background: #F3F0E6; }
-.mood-icon { width: 96rpx; height: 96rpx; }
-.mood-name { font-size: 26rpx; color: #6B6B6B; }
+.mood-icon { width: 72rpx; height: 72rpx; }
+.mood-name { font-size: 24rpx; color: #6B6B6B; }
+
+/* 已保存提示 */
+.saved-hint { margin: 18rpx 0 0; text-align: center; font-size: 24rpx; color: #5E9B75; font-weight: 600; }
 
 /* 保存按钮 */
-.save-button { background: #5E9B75; color: #fff; border-radius: 40rpx; font-size: 30rpx; font-weight: 600; line-height: 78rpx; width: auto; margin: 28rpx 0 0; }
+.save-button { background: #5E9B75; color: #fff; border-radius: 34rpx; font-size: 28rpx; font-weight: 600; line-height: 64rpx; padding: 0 40rpx; width: auto; margin: 22rpx 0 0; }
 
 /* 本周完成率 */
 .weekly-title { margin-top: 38rpx; }
-.weekly-rate { display: flex; justify-content: space-around; align-items: center; background: #F2EFF6; border: 1rpx solid #E8E3EF; padding: 24rpx 20rpx; margin-bottom: 20rpx; }
-.rate-item { display: flex; flex-direction: column; align-items: center; gap: 12rpx; }
-.ring-wrap { position: relative; width: 140rpx; height: 140rpx; display: flex; align-items: center; justify-content: center; }
-.ring-canvas { width: 140rpx; height: 140rpx; }
-.ring-percent { position: absolute; font-size: 32rpx; font-weight: 700; color: #25342B; }
-.ring-label { font-size: 26rpx; color: #5E5668; }
+.weekly-rate { display: flex; justify-content: space-around; align-items: center; background: #F2EFF6; border: 1rpx solid #E8E3EF; padding: 18rpx 14rpx; margin-bottom: 20rpx; }
+.rate-item { display: flex; flex-direction: column; align-items: center; gap: 10rpx; }
+.ring-wrap { position: relative; width: 116rpx; height: 116rpx; display: flex; align-items: center; justify-content: center; }
+.ring-canvas { width: 116rpx; height: 116rpx; }
+.ring-percent { position: absolute; font-size: 28rpx; font-weight: 700; color: #25342B; }
+.ring-label { font-size: 24rpx; color: #5E5668; }
 
 /* 数据更新 */
 .data-section-title { margin-top: 38rpx; }
-.weight { padding: 22rpx 26rpx; display: flex; align-items: center; gap: 16rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
+.weight { padding: 16rpx 20rpx; display: flex; align-items: center; gap: 14rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
 .weight-label { font-size: 30rpx; color: #6B4F4D; font-weight: 600; flex: none; }
 .weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 10rpx; }
 .weight-input-wrap input { text-align: right; font-size: 36rpx; font-weight: 700; color: #5D4A49; width: 160rpx; }
 .weight-unit { font-size: 30rpx; color: #8D7876; }
-.update-button { width: 130rpx; margin: 0; font-size: 28rpx; line-height: 60rpx; background: #EAD4D2; color: #7A5A58; }
+.update-button { width: 140rpx; margin: 0; font-size: 32rpx; line-height: 66rpx; background: #EAD4D2; color: #7A5A58; }
