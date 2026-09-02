@@ -1,6 +1,6 @@
 page { background: #F8F6F1; color: #25342B; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; }
 button::after { border: none; }
-.page { min-height: 100vh; box-sizing: border-box; padding: 28rpx 32rpx 170rpx; }
+.page { min-height: 100vh; box-sizing: border-box; padding: 28rpx 32rpx 100rpx; }
 .card { background: #FFFEFA; border-radius: 32rpx; box-shadow: 0 14rpx 34rpx rgba(86, 111, 91, .08); }
 .eyebrow { color: #789080; font-size: 24rpx; letter-spacing: 1rpx; }
 .page-title { font-size: 48rpx; font-weight: 700; line-height: 1.25; }

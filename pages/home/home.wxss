@@ -55,7 +55,7 @@
 /* 减脂小Tips */
 .tips-head { display: flex; align-items: center; margin: 34rpx 0 24rpx; }
 .tips-title { font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
-.tips { display: flex; flex-direction: column; gap: 24rpx; margin-bottom: 24rpx; }
+.tips { display: flex; flex-direction: column; gap: 24rpx; margin-bottom: 16rpx; }
 .tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; background: #F8FBFC; border: 1rpx solid #F1F5F7; box-shadow: none; }
 .tip-icon { width: 64rpx; height: 64rpx; flex: none; }
 .tip-text { flex: 1; display: flex; flex-direction: column; gap: 10rpx; }
