@@ -35,6 +35,7 @@
 
 /* 区块小标题：炭黑降低透明、间距拉开 */
 .section-title-sm { margin: 56rpx 0 22rpx; font-size: 28rpx; font-weight: 600; color: rgba(37, 52, 43, 0.8); letter-spacing: 1rpx; }
+.checkin-title { margin-top: 74rpx; }
 .tips-title { margin: 0; }
 
 /* 今日打卡 */
@@ -52,16 +53,15 @@
 .task.treat { background: #FBF1EC; border-color: #F5DDD4; margin-top: 18rpx; }
 
 /* 减脂小Tips */
-.tips-head { display: flex; align-items: center; justify-content: space-between; margin: 64rpx 0 24rpx; }
+.tips-head { display: flex; align-items: center; margin: 34rpx 0 24rpx; }
 .tips-title { font-size: 30rpx; font-weight: 700; color: #25342B; letter-spacing: 1rpx; }
-.tips-plant { width: 96rpx; height: 96rpx; flex: none; border-radius: 20rpx; }
-.tips { display: flex; flex-direction: column; gap: 30rpx; margin-bottom: 24rpx; }
-.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; }
+.tips { display: flex; flex-direction: column; gap: 24rpx; margin-bottom: 24rpx; }
+.tip-entry { display: flex; align-items: center; gap: 22rpx; padding: 28rpx; background: #E4EFF2; border: 1rpx solid #D7E5EA; box-shadow: none; }
 .tip-icon { width: 64rpx; height: 64rpx; flex: none; }
-.tip-text { flex: 1; display: flex; flex-direction: column; gap: 12rpx; }
-.tip-name { font-size: 29rpx; font-weight: 700; color: #25342B; }
-.tip-desc { font-size: 23rpx; color: #849088; }
-.tip-arrow { color: #B7C0B5; font-size: 36rpx; }
+.tip-text { flex: 1; display: flex; flex-direction: column; gap: 10rpx; }
+.tip-name { font-size: 29rpx; font-weight: 700; color: #2A4C55; }
+.tip-desc { font-size: 23rpx; color: #5E7C85; }
+.tip-arrow { color: #8DAEB8; font-size: 36rpx; }
 
 /* 弹层 */
 .mask { position: fixed; inset: 0; background: rgba(40, 52, 43, 0.45); display: flex; align-items: flex-end; z-index: 50; }

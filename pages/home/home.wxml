@@ -34,7 +34,7 @@
   </view>
 
   <!-- 今日打卡 -->
-  <text class="section-title-sm">今日打卡</text>
+  <text class="section-title-sm checkin-title">今日打卡</text>
   <view class="task-grid">
     <view class="card task {{item.done ? 'done' : ''}}" wx:for="{{grid}}" wx:key="type" data-type="{{item.type}}" bindtap="record">
       <view class="task-icon-box" style="background:{{item.color}}15">
@@ -65,7 +65,6 @@
   <!-- 减脂Tips -->
   <view class="tips-head">
     <text class="section-title-sm tips-title">减脂Tips</text>
-    <image class="tips-plant" src="/assets/icons/tips-plant.svg" mode="aspectFit"/>
   </view>
   <view class="tips">
     <view class="card tip-entry" data-tab="methods" bindtap="openTip">
