@@ -62,7 +62,8 @@ function computeStreak(checkins) {
 Page({
   data: {
     greeting: '', nickname: '', today: '', profile: {}, current: 0, target: 0,
-    startWeight: 0, weightLost: 0, progress: 0, continuousDays: 0,
+    startWeight: 0, progress: 0, continuousDays: 0,
+    changeArrow: '', changeText: '--', changeClass: 'empty',
     meals: [], sport: null, treatWeekCount: 0,
     methods: METHODS, sports: SPORTS, myShare: '',
     tipsOpen: false, tipTab: '', tipList: [], tipContent: ''
@@ -75,7 +76,14 @@ Page({
     const body = records.slice(-1)[0] || {}
     const current = body.weight || profile.startWeight
     const pct = progressPct(profile, body)
-    const weightLost = Math.max(0, Math.round((profile.startWeight - current) * 10) / 10)
+    let changeArrow = '', changeText = '--', changeClass = 'empty'
+    if (records.length >= 2) {
+      const sorted = records.slice().sort((a, b) => a.date.localeCompare(b.date))
+      const diff = Math.round((current - sorted[sorted.length - 2].weight) * 10) / 10
+      changeArrow = diff > 0 ? '↑' : (diff < 0 ? '↓' : '→')
+      changeClass = diff > 0 ? 'up' : (diff < 0 ? 'down' : 'flat')
+      changeText = diff > 0 ? `+${diff}` : `${diff}`
+    }
     const continuous = computeStreak(getAllCheckins())
     const checkins = getCheckins()
     const meals = MEAL_TYPES.map(type => {
@@ -89,7 +97,8 @@ Page({
     this.setData({
       greeting: greeting(), nickname: profile.nickname || '轻减小伙伴',
       today: today(), profile, current, target: profile.targetWeight,
-      startWeight: profile.startWeight, weightLost, progress: pct,
+      startWeight: profile.startWeight, progress: pct,
+      changeArrow, changeText, changeClass,
       continuousDays: continuous, meals, sport, treatWeekCount, myShare: profile.myShare || ''
     })
     this.loadCloud()

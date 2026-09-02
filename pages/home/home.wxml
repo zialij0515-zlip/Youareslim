@@ -19,21 +19,27 @@
     </view>
   </view>
 
-  <!-- 目标进度（体重/目标/已下降/连续打卡 + 进度条） -->
+  <!-- 今日体重卡：参考图样式 -->
   <view class="card hero">
-    <view class="hero-row">
-      <view class="hero-block"><text class="hero-label">当前体重</text><text class="hero-value">{{current}}<text class="unit">kg</text></text></view>
-      <view class="hero-block"><text class="hero-label">目标体重</text><text class="hero-value">{{target}}<text class="unit">kg</text></text></view>
-      <view class="hero-block"><text class="hero-label">已下降</text><text class="hero-value down">{{weightLost}}<text class="unit">kg</text></text></view>
-      <view class="hero-block"><text class="hero-label">连续打卡</text><text class="hero-value">{{continuousDays}}<text class="unit">天</text></text></view>
+    <view class="hero-top">
+      <view class="hero-main">
+        <text class="hero-label">今日体重</text>
+        <view class="hero-weight"><text class="hero-value">{{current}}</text><text class="hero-unit">kg</text></view>
+        <text class="change {{changeClass}}">{{changeArrow}} {{changeText}} kg</text>
+      </view>
+      <view class="streak-card">
+        <text class="streak-label">连续打卡</text>
+        <view class="streak-num"><text>{{continuousDays}}</text><text class="streak-unit">天</text></view>
+      </view>
     </view>
     <view class="bar">
       <view class="bar-fill" style="width:{{progress}}%"></view>
-      <view class="bar-dot" style="left:{{progress}}%"></view>
+      <view class="bar-dot start"></view>
+      <view class="bar-dot current" style="left:{{progress}}%"></view>
+      <view class="bar-dot target"></view>
     </view>
     <view class="bar-labels">
       <text>初始 {{startWeight}}kg</text>
-      <text class="bar-pct">{{progress}}%</text>
       <text>目标 {{target}}kg</text>
     </view>
   </view>

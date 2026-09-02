@@ -4,21 +4,34 @@
 .hello { font-size: 40rpx; font-weight: 700; color: #25342B; }
 .mascot { width: 120rpx; height: 120rpx; flex: none; }
 
-/* 目标进度 hero */
-.hero { padding: 32rpx; display: flex; flex-direction: column; gap: 24rpx; }
-.hero-row { display: flex; justify-content: space-between; }
-.hero-block { display: flex; flex-direction: column; gap: 8rpx; align-items: center; flex: 1; }
-.hero-label { color: #789080; font-size: 22rpx; }
-.hero-value { font-size: 40rpx; font-weight: 700; color: #25342B; line-height: 1.1; }
-.hero-value .unit { font-size: 22rpx; font-weight: 400; color: #849088; }
-.hero-value.down { color: #4F8567; }
+/* 今日体重 hero */
+.hero { padding: 34rpx 32rpx 28rpx; display: flex; flex-direction: column; gap: 28rpx; }
+.hero-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.hero-main { display: flex; flex-direction: column; gap: 10rpx; }
+.hero-label { color: #789080; font-size: 24rpx; }
+.hero-weight { display: flex; align-items: baseline; gap: 8rpx; }
+.hero-value { font-size: 76rpx; font-weight: 700; color: #25342B; line-height: 1; }
+.hero-unit { font-size: 28rpx; color: #849088; }
+.change { font-size: 26rpx; color: #849088; }
+.change.down { color: #4F8567; }
+.change.up { color: #D98B6F; }
+.change.flat { color: #849088; }
+.change.empty { color: #B7C0B5; }
+/* 连续打卡小卡 */
+.streak-card { background: #F3F7F1; border-radius: 20rpx; padding: 16rpx 22rpx; display: flex; flex-direction: column; align-items: center; gap: 6rpx; flex: none; }
+.streak-label { color: #5E9B75; font-size: 22rpx; }
+.streak-num { display: flex; align-items: baseline; gap: 4rpx; }
+.streak-num text { font-size: 44rpx; font-weight: 700; color: #4F8567; line-height: 1; }
+.streak-unit { font-size: 22rpx; color: #789080; }
 
-/* 进度条：初始 → 当前 → 目标 */
-.bar { position: relative; height: 16rpx; border-radius: 999rpx; background: #EAF1EC; margin: 6rpx 0 4rpx; }
-.bar-fill { height: 100%; border-radius: 999rpx; background: linear-gradient(90deg, #7DB98C, #4F8567); }
-.bar-dot { position: absolute; top: 50%; width: 24rpx; height: 24rpx; border-radius: 50%; background: #fff; border: 4rpx solid #4F8567; transform: translate(-50%, -50%); }
+/* 进度条：初始(绿) → 当前(绿) → 目标(粉) */
+.bar { position: relative; height: 14rpx; border-radius: 999rpx; background: #E9EBE8; margin: 4rpx 0 6rpx; }
+.bar-fill { height: 100%; border-radius: 999rpx; background: #4F8567; }
+.bar-dot { position: absolute; top: 50%; width: 20rpx; height: 20rpx; border-radius: 50%; border: 4rpx solid #fff; box-sizing: border-box; transform: translate(-50%, -50%); }
+.bar-dot.start { left: 0; background: #4F8567; }
+.bar-dot.current { background: #4F8567; }
+.bar-dot.target { right: 0; left: auto; transform: translate(50%, -50%); background: #E8927C; }
 .bar-labels { display: flex; justify-content: space-between; color: #849088; font-size: 22rpx; }
-.bar-pct { color: #4F8567; font-weight: 700; }
 
 /* 今日打卡 */
 .section-title { margin: 40rpx 0 18rpx; font-size: 30rpx; font-weight: 700; color: #25342B; }
