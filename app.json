@@ -1,5 +1,6 @@
 {
   "pages": ["pages/onboarding/onboarding", "pages/home/home", "pages/record/record", "pages/data/data", "pages/profile/profile", "pages/poster/poster"],
+  "cloud": true,
   "window": {"navigationBarTextStyle": "black", "navigationBarTitleText": "轻减日记", "navigationBarBackgroundColor": "#F8F6F1", "backgroundColor": "#F8F6F1", "backgroundTextStyle": "light"},
   "tabBar": {"color": "#8B958C", "selectedColor": "#4F8567", "backgroundColor": "#FFFEFA", "borderStyle": "white", "list": [{"pagePath":"pages/home/home","text":"首页"},{"pagePath":"pages/record/record","text":"记录"},{"pagePath":"pages/data/data","text":"数据"},{"pagePath":"pages/profile/profile","text":"我的"}]},
   "style": "v2", "componentFramework": "glass-easel", "sitemapLocation": "sitemap.json", "lazyCodeLoading": "requiredComponents"
