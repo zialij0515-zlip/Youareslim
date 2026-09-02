@@ -25,7 +25,7 @@
 
     <view class="field-block">
       <text class="field-title">文字记录</text>
-      <textarea placeholder="{{notePlaceholder}}" value="{{note}}" data-key="note" bindinput="input" maxlength="120"/>
+      <textarea placeholder="{{notePlaceholder}}" value="{{note}}" data-key="note" bindinput="input" maxlength="120" style="height:72rpx;min-height:72rpx;"/>
     </view>
 
     <view class="field-block">
@@ -67,6 +67,6 @@
       <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input"/>
       <text class="weight-unit">kg</text>
     </view>
-    <button class="ghost-button update-button" bindtap="saveWeight">更新</button>
+    <button class="update-button" bindtap="saveWeight">更新</button>
   </view>
 </view>
