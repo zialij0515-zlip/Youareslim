@@ -19,8 +19,8 @@
 .add-icon { color: #C4A57F; font-size: 48rpx; line-height: 1; }
 .add-text { color: #C4A57F; font-size: 24rpx; }
 
-/* 文字记录：更短，只留 1 行半高度 */
-.form textarea { background: #F8F8F4; width: 100%; min-height: 68rpx; box-sizing: border-box; padding: 14rpx 18rpx; border-radius: 18rpx; font-size: 28rpx; line-height: 1.35; }
+/* 文字记录：缩到接近单行高度 */
+.form textarea { background: #F8F8F4; width: 100%; min-height: 50rpx; box-sizing: border-box; padding: 10rpx 14rpx; border-radius: 16rpx; font-size: 27rpx; line-height: 1.3; }
 
 /* 今日感受 */
 .mood-row { display: flex; justify-content: space-around; align-items: center; }
@@ -44,11 +44,11 @@
 .ring-percent { position: absolute; font-size: 28rpx; font-weight: 700; color: #25342B; }
 .ring-label { font-size: 24rpx; color: #5E5668; }
 
-/* 数据更新：整体更紧凑，更新按钮紧贴文字 */
+/* 数据更新：整体更紧凑，更新按钮缩成小红框 */
 .data-section-title { margin-top: 34rpx; }
-.weight { padding: 12rpx 14rpx; display: flex; align-items: center; gap: 10rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
-.weight-label { font-size: 29rpx; color: #6B4F4D; font-weight: 600; flex: none; }
-.weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 8rpx; }
-.weight-input-wrap input { text-align: right; font-size: 34rpx; font-weight: 700; color: #5D4A49; width: 120rpx; }
-.weight-unit { font-size: 28rpx; color: #8D7876; }
-.update-button { width: auto; min-width: 86rpx; padding: 0 22rpx; margin: 0; font-size: 30rpx; font-weight: 600; line-height: 54rpx; border-radius: 28rpx; background: #EAD4D2; color: #7A5A58; }
+.weight { padding: 8rpx 12rpx; display: flex; align-items: center; gap: 8rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
+.weight-label { font-size: 28rpx; color: #6B4F4D; font-weight: 600; flex: none; }
+.weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 6rpx; }
+.weight-input-wrap input { text-align: right; font-size: 30rpx; font-weight: 700; color: #5D4A49; width: 100rpx; }
+.weight-unit { font-size: 24rpx; color: #8D7876; }
+.update-button { width: auto; min-width: 60rpx; padding: 0 14rpx; margin: 0; font-size: 26rpx; font-weight: 600; line-height: 40rpx; border-radius: 20rpx; background: #EAD4D2; color: #7A5A58; }
