@@ -56,16 +56,16 @@
 
   <view class="section-title">
     <text>最近记录</text>
-    <text class="section-count">（7次）</text>
+    <text class="section-count">（{{listRecords.length}}次）</text>
   </view>
   <view class="card trend">
-    <block wx:if="{{records.length}}">
+    <block wx:if="{{listRecords.length}}">
       <view class="row header">
         <text class="row-date">日期</text>
         <text class="row-weight">体重</text>
         <text class="row-bmi">BMI指数</text>
       </view>
-      <view wx:for="{{records}}" wx:key="date" class="row">
+      <view wx:for="{{listRecords}}" wx:key="date" class="row">
         <text class="row-date">{{item.date}}</text>
         <text class="row-weight">{{item.weight}} kg</text>
         <text class="row-bmi">{{item.bmi}}</text>

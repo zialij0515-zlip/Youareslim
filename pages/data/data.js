@@ -46,7 +46,7 @@ function dpr() {
 
 Page({
   data: {
-    profile: {}, latest: {}, records: [],
+    profile: {}, latest: {}, records: [], listRecords: [],
     rangeKey: 'week', rangeOptions: Object.values(RANGES),
     metricKey: 'weight', metricOptions: Object.values(METRICS),
     hasData: false,
@@ -109,8 +109,11 @@ Page({
   refreshChart() {
     const metric = METRICS[this.data.metricKey]
     const range = RANGES[this.data.rangeKey]
-    const records = filterByRange(sourceRecords(), range.days).filter(r => Number.isFinite(metric.get(r)))
-    this.setData({ records, hasData: records.length > 0 }, () => this.drawChart(metric, records))
+    const source = sourceRecords()
+    const records = filterByRange(source, range.days).filter(r => Number.isFinite(metric.get(r)))
+    // 最近记录表格只展示最近 7 条，按时间倒序（最新的在最上面）
+    const listRecords = source.slice(-7).reverse()
+    this.setData({ records, listRecords, hasData: records.length > 0 }, () => this.drawChart(metric, records))
   },
   drawChart(metric, records) {
     if (!records.length) return
