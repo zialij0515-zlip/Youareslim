@@ -49,9 +49,10 @@
 .section-subtitle { font-size: 24rpx; color: #9A8A88; font-weight: 400; }
 .weight { padding: 30rpx 28rpx; display: flex; flex-direction: column; align-items: flex-start; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
 .weight-label { font-size: 32rpx; color: #6B4F4D; font-weight: 600; }
-.weight-value { display: flex; align-items: baseline; gap: 2rpx; margin-top: 16rpx; }
-.weight-value input { text-align: left; font-size: 80rpx; font-weight: 700; color: #5D4A49; width: 260rpx; height: auto; min-height: 0; background: transparent; padding: 0; margin: 0; }
-.weight-unit { font-size: 34rpx; color: #7A5A58; }
-.bmi-banner { margin-top: 18rpx; width: 100%; box-sizing: border-box; }
-.bmi-text { font-size: 28rpx; color: #6B4F4D; font-weight: 600; }
-.weight-loss { margin-top: 14rpx; font-size: 26rpx; color: #6B4F4D; font-weight: 600; }
+.weight-row { display: flex; align-items: center; gap: 24rpx; margin-top: 12rpx; width: 100%; }
+.weight-value { display: flex; align-items: baseline; gap: 2rpx; flex: none; }
+.weight-value input { text-align: left; font-size: 72rpx; font-weight: 700; color: #5D4A49; width: auto; min-width: 120rpx; height: 1em; line-height: 1; min-height: 0; background: transparent; padding: 0; margin: 0; }
+.weight-unit { font-size: 30rpx; color: #7A5A58; }
+.bmi-badge { padding: 10rpx 18rpx; background: rgba(255,255,255,0.55); border: 1rpx solid rgba(255,255,255,0.45); border-radius: 18rpx; }
+.bmi-text { font-size: 26rpx; color: #7A5A58; font-weight: 500; }
+.weight-loss { margin-top: 18rpx; font-size: 24rpx; color: #9A8A88; }
