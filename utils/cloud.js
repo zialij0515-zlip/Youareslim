@@ -1,6 +1,9 @@
 // 微信云开发环境 ID（在微信开发者工具「云开发」面板顶部复制）
 const ENV_ID = 'cloud1-d1g0on3869c3170d5'
 
+// 订阅消息「打卡提醒」模板 ID（在微信公众平台「订阅消息」中创建）
+const REMIND_TEMPLATE_ID = 'YC8eJXTIXEa2snIHZaZEjE7BP9NWumRcUoCEVpxfuI4'
+
 let _inited = false
 let _openid = ''
 
@@ -170,4 +173,4 @@ async function syncSubscription(templateId) {
   }
 }
 
-module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins, syncDiary, getCloudDiary, syncSubscription }
+module.exports = { ENV_ID, REMIND_TEMPLATE_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins, syncDiary, getCloudDiary, syncSubscription }

@@ -109,6 +109,7 @@ Page({
       else wx.hideTabBarRedDot({ index: 1 })
     } catch (e) {}
     this.loadCloud()
+    this.maybeRequestSubscribe()
   },
   record(e) {
     const type = e.currentTarget.dataset.type
@@ -154,6 +155,22 @@ Page({
   closeDiary() { this.setData({ diaryOpen: false }) },
   dismissRemind() { this.setData({ remindModal: false, remindDismissed: true }) },
   goRemindRecord() { this.setData({ remindModal: false }); wx.switchTab({ url: '/pages/record/record' }) },
+  maybeRequestSubscribe() {
+    const { profile } = this.data
+    if (!profile.remindCheckIn || !cloud.REMIND_TEMPLATE_ID || !cloud.enabled()) return
+    if (profile.lastSubscribeRequest === today()) return
+    wx.requestSubscribeMessage({
+      tmplIds: [cloud.REMIND_TEMPLATE_ID],
+      success: () => {
+        saveProfile({ lastSubscribeRequest: today() })
+        if (cloud.enabled()) cloud.syncSubscription(cloud.REMIND_TEMPLATE_ID)
+      },
+      fail: (e) => {
+        console.warn('[home] 订阅授权失败', e)
+        saveProfile({ lastSubscribeRequest: today() })
+      }
+    })
+  },
   noop() {},
   async loadCloud() {
     if (!cloud.enabled()) return

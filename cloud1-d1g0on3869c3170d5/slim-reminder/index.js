@@ -2,8 +2,16 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-// TODO: 填入你在微信公众平台「订阅消息」中创建的「打卡提醒」模板 ID（与 pages/profile/profile.js 中的 REMIND_TEMPLATE_ID 保持一致）
-const TEMPLATE_ID = ''
+// 订阅消息「打卡提醒」模板 ID（与 pages/profile/profile.js 的 REMIND_TEMPLATE_ID 保持一致）
+const TEMPLATE_ID = 'YC8eJXTIXEa2snIHZaZEjE7BP9NWumRcUoCEVpxfuI4'
+
+// 生成北京时间字符串（云函数运行时不一定是东八区）
+function beijingTimeString(d = new Date()) {
+  const offsetMin = d.getTimezoneOffset() // 当前时区与 UTC 的分钟差
+  const cst = new Date(d.getTime() + (offsetMin + 480) * 60000)
+  const pad = n => n.toString().padStart(2, '0')
+  return `${cst.getFullYear()}年${cst.getMonth() + 1}月${cst.getDate()}日 ${pad(cst.getHours())}:${pad(cst.getMinutes())}`
+}
 
 // 每日定时触发：向所有授权过订阅消息的用户推送打卡提醒
 exports.main = async (event) => {
@@ -12,6 +20,7 @@ exports.main = async (event) => {
   }
   const subs = await db.collection('reminder_subs').get()
   let sent = 0
+  const timeStr = beijingTimeString()
   for (const s of subs.data) {
     try {
       await cloud.openapi.subscribeMessage.send({
@@ -19,9 +28,8 @@ exports.main = async (event) => {
         templateId: TEMPLATE_ID,
         page: 'pages/home/home',
         data: {
-          // TODO: 按模板的关键词字段填充，例如：
-          // thing1: { value: '该打卡啦' },
-          // time2: { value: '今天' }
+          thing26: { value: '今天还没打卡哦' },
+          time23: { value: timeStr }
         }
       })
       sent++

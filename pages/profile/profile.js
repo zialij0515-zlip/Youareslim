@@ -1,7 +1,6 @@
 const { getProfile, saveProfile, getBodyRecords } = require('../../utils/store')
 const cloud = require('../../utils/cloud')
-// 订阅消息模板 ID：在微信公众平台「订阅消息」中创建「打卡提醒」模板后填入，留空则只做应用内提醒
-const REMIND_TEMPLATE_ID = ''
+const { REMIND_TEMPLATE_ID } = cloud
 Page({
   data: { profile: {}, current: {} },
   onShow() { const profile = getProfile(), current = getBodyRecords().slice(-1)[0] || {}; this.setData({ profile, current }) },
