@@ -119,4 +119,14 @@
       </block>
     </view>
   </view>
+
+  <!-- 弹层：未打卡提醒（开启每日提醒且当天未打卡时弹出） -->
+  <view class="mask remind-mask" wx:if="{{remindModal}}">
+    <view class="remind-dialog" catchtap="noop">
+      <text class="remind-dialog-title">今天还没打卡哦</text>
+      <text class="remind-dialog-desc">记录今天的饮食或运动，慢慢靠近目标～</text>
+      <button class="primary-button remind-go" bindtap="goRemindRecord">去记录</button>
+      <button class="ghost-button remind-later" bindtap="dismissRemind">稍后再说</button>
+    </view>
+  </view>
 </view>

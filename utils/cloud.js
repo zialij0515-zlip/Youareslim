@@ -149,4 +149,25 @@ async function getCloudDiary() {
   }
 }
 
-module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins, syncDiary, getCloudDiary }
+// 记录订阅消息授权（集合 reminder_subs，供定时推送云函数读取），失败返回 false
+async function syncSubscription(templateId) {
+  const db = getDb()
+  if (!db || !templateId) return { synced: false }
+  try {
+    const openid = await getOpenid()
+    if (!openid) return { synced: false }
+    const coll = db.collection('reminder_subs')
+    const exist = await coll.where({ _openid: openid, templateId }).get()
+    if (exist.data && exist.data.length) {
+      await coll.doc(exist.data[0]._id).update({ data: { authorizedAt: Date.now() } })
+    } else {
+      await coll.add({ data: { templateId, authorizedAt: Date.now() } })
+    }
+    return { synced: true }
+  } catch (e) {
+    console.warn('[cloud] 同步订阅失败', e)
+    return { synced: false, error: e }
+  }
+}
+
+module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins, syncDiary, getCloudDiary, syncSubscription }

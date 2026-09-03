@@ -7,12 +7,13 @@ Page({
   input(e) { this.setData({ [`form.${e.currentTarget.dataset.key}`]: e.detail.value }) },
   gender(e) { this.setData({ genderIndex: Number(e.detail.value), 'form.gender': Number(e.detail.value) ? 'male' : 'female' }) },
   dateChange(e) { this.setData({ 'form.targetDate': e.detail.value }) },
+  toggleRemind(e) { this.setData({ 'form.remindCheckIn': e.detail.value }) },
   submit() {
     const f = this.data.form; const required = ['age','height','startWeight','targetWeight'];
     if (required.some(key => !Number(f[key]))) return wx.showToast({ title: '请补全有效的身体数据', icon: 'none' })
     const weight = Number(f.startWeight); const height = Number(f.height); const age = Number(f.age); const bmiValue = bmi(weight, height)
     const bodyFatValue = bodyFat({ gender: f.gender, age, bmiValue })
-    const profile = { nickname: f.nickname || '轻减小伙伴', gender: f.gender, age, height, startWeight: weight, targetWeight: Number(f.targetWeight), targetDate: f.targetDate || '', onboardingComplete: true }
+    const profile = { nickname: f.nickname || '轻减小伙伴', gender: f.gender, age, height, startWeight: weight, targetWeight: Number(f.targetWeight), targetDate: f.targetDate || '', onboardingComplete: true, remindCheckIn: f.remindCheckIn !== false }
     saveProfile(profile)
     const record = { date: today(), weight, bmi: bmiValue, bodyFat: bodyFatValue }
     addBodyRecord(record)

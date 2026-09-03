@@ -31,6 +31,17 @@
 
   <button class="ghost-button" bindtap="edit">编辑档案与目标</button>
 
+  <text class="section-title">提醒设置</text>
+  <view class="card remind-card">
+    <view class="remind-row">
+      <view class="remind-text">
+        <text class="remind-name">每日打卡提醒</text>
+        <text class="remind-desc">当天未打卡时提醒你去记录</text>
+      </view>
+      <switch checked="{{profile.remindCheckIn}}" bindchange="toggleRemind" color="#4F8567"/>
+    </view>
+  </view>
+
   <view class="card poster">
     <text class="poster-text">达成目标后，生成你的轻减海报</text>
     <button class="primary-button" bindtap="poster">查看目标海报</button>

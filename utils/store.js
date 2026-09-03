@@ -1,6 +1,6 @@
 const KEYS = { profile: 'slim_profile', body: 'slim_body_records', checkins: 'slim_checkins', diary: 'slim_diary' }
 const today = () => new Date().toISOString().slice(0, 10)
-const defaultProfile = { nickname: '轻减小伙伴', gender: 'female', age: 28, height: 165, startWeight: 62, targetWeight: 55, targetDate: '', onboardingComplete: false }
+const defaultProfile = { nickname: '轻减小伙伴', gender: 'female', age: 28, height: 165, startWeight: 62, targetWeight: 55, targetDate: '', onboardingComplete: false, remindCheckIn: true }
 function read(key, fallback) { return wx.getStorageSync(key) || fallback }
 function write(key, value) { wx.setStorageSync(key, value); return value }
 function ensureProfile() { const profile = read(KEYS.profile, null); if (!profile) write(KEYS.profile, defaultProfile); return read(KEYS.profile, defaultProfile) }

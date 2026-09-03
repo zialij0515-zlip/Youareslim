@@ -54,7 +54,8 @@ Page({
     changeArrow: '', changeText: '--', changeClass: 'empty',
     grid: [], treatWeekCount: 0,
     diaryLatest: '',
-    diaryOpen: false, diaryList: [], diaryDraft: '', diaryView: null
+    diaryOpen: false, diaryList: [], diaryDraft: '', diaryView: null,
+    remindModal: false, remindDismissed: false
   },
   onLoad() { this.refresh() },
   onShow() { this.refresh() },
@@ -99,6 +100,14 @@ Page({
       changeArrow, changeText, changeClass,
       continuousDays: continuous, grid, treatWeekCount, diaryLatest
     })
+    // 应用内「强制」提醒：开启且当天未打卡 → 弹层；并在记录 tab 显示红点
+    const noCheckinToday = checkins.length === 0
+    const showRemind = profile.remindCheckIn && noCheckinToday && !this.data.remindDismissed
+    this.setData({ remindModal: showRemind })
+    try {
+      if (profile.remindCheckIn && noCheckinToday) wx.showTabBarRedDot({ index: 1 })
+      else wx.hideTabBarRedDot({ index: 1 })
+    } catch (e) {}
     this.loadCloud()
   },
   record(e) {
@@ -143,6 +152,8 @@ Page({
   },
   closeDiaryView() { this.setData({ diaryView: null }) },
   closeDiary() { this.setData({ diaryOpen: false }) },
+  dismissRemind() { this.setData({ remindModal: false, remindDismissed: true }) },
+  goRemindRecord() { this.setData({ remindModal: false }); wx.switchTab({ url: '/pages/record/record' }) },
   noop() {},
   async loadCloud() {
     if (!cloud.enabled()) return

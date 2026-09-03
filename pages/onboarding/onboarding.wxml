@@ -8,7 +8,8 @@
     <view class="field"><text>身高</text><input type="digit" value="{{form.height}}" data-key="height" bindinput="input"/><text class="unit">cm</text></view>
     <view class="field"><text>当前体重</text><input type="digit" value="{{form.startWeight}}" data-key="startWeight" bindinput="input"/><text class="unit">kg</text></view>
     <view class="field"><text>目标体重</text><input type="digit" value="{{form.targetWeight}}" data-key="targetWeight" bindinput="input"/><text class="unit">kg</text></view>
-    <view class="field last"><text>目标日期（可选）</text><picker mode="date" value="{{form.targetDate}}" start="2024-01-01" end="2030-12-31" bindchange="dateChange"><view class="picker-value {{form.targetDate ? '' : 'muted'}}">{{form.targetDate || '选择日期'}}</view></picker></view>
+    <view class="field"><text>目标日期（可选）</text><picker mode="date" value="{{form.targetDate}}" start="2024-01-01" end="2030-12-31" bindchange="dateChange"><view class="picker-value {{form.targetDate ? '' : 'muted'}}">{{form.targetDate || '选择日期'}}</view></picker></view>
+    <view class="field last"><text>每日打卡提醒</text><switch checked="{{form.remindCheckIn}}" bindchange="toggleRemind" color="#4F8567" style="margin-left:auto"/></view>
   </view>
   <button class="primary-button" bindtap="submit">保存并开始记录</button>
 </view>
