@@ -54,7 +54,10 @@
     <view wx:if="{{!hasData}}" class="empty">这个时间段还没有数据，先去记录吧～</view>
   </view>
 
-  <text class="section-title">最近记录（7次）</text>
+  <view class="section-title">
+    <text>最近记录</text>
+    <text class="section-count">（7次）</text>
+  </view>
   <view class="card trend">
     <block wx:if="{{records.length}}">
       <view class="row header">

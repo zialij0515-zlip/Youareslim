@@ -28,7 +28,8 @@
 .bmi-advice { margin-top: 4rpx; font-size: 25rpx; color: #6B6B6B; line-height: 1.6; }
 
 .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16rpx; margin: 28rpx 0 18rpx; }
-.section-title { margin: 50rpx 0 24rpx; }
+.section-title { margin: 70rpx 0 36rpx; display: flex; align-items: baseline; gap: 8rpx; font-size: 29rpx; color: #3E3E3E; font-weight: 600; }
+.section-count { font-size: 23rpx; color: #9BA7A0; font-weight: 400; }
 .segment { display: flex; background: #EEF2ED; border-radius: 999rpx; padding: 6rpx; gap: 4rpx; }
 .segment.right { background: transparent; padding: 0; }
 .seg { padding: 12rpx 26rpx; font-size: 25rpx; color: #738179; border-radius: 999rpx; transition: all .2s; }
