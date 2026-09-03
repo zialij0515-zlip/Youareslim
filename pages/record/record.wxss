@@ -54,9 +54,11 @@
 .weight-value { display: flex; align-items: baseline; gap: 2rpx; flex-wrap: wrap; }
 .weight-value input { text-align: left; font-size: 84rpx; font-weight: 700; color: #5D4A49; width: 170rpx; height: 1em; line-height: 1; min-height: 0; background: transparent; padding: 0; margin: 0; }
 .weight-unit { font-size: 32rpx; color: #7A5A58; }
-.bmi-badge { align-self: flex-end; margin-left: 10rpx; margin-bottom: 6rpx; padding: 4rpx 10rpx; background: rgba(255,245,242,0.85); border: 1rpx solid rgba(255,230,225,0.6); border-radius: 12rpx; }
+.bmi-badge { align-self: flex-end; margin-left: 20rpx; margin-bottom: 6rpx; padding: 4rpx 10rpx; background: rgba(255,245,242,0.85); border: 1rpx solid rgba(255,230,225,0.6); border-radius: 12rpx; }
 .bmi-text { font-size: 22rpx; color: #7A5A58; font-weight: 500; }
-.day-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4rpx; padding: 14rpx 18rpx; background: #FDF8F0; border: 1rpx solid #F2EBD0; border-radius: 18rpx; flex: none; }
-.day-text { font-size: 22rpx; color: #9A8A88; }
-.day-count { font-size: 26rpx; color: #6B4F4D; font-weight: 600; }
+.day-badge { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6rpx; padding: 22rpx 28rpx; background: #FDF8F0; border: 1rpx solid #F2EBD0; border-radius: 20rpx; flex: none; }
+.day-text { font-size: 24rpx; color: #9A8A88; }
+.day-count-row { display: flex; align-items: baseline; gap: 8rpx; }
+.day-count { font-size: 36rpx; color: #6B4F4D; font-weight: 700; }
+.day-unit { font-size: 24rpx; color: #9A8A88; }
 .weight-loss { margin-top: 18rpx; font-size: 24rpx; color: #9A8A88; }
