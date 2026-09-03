@@ -52,6 +52,7 @@ Page({
   },
   changeRange(e) { this.setData({ rangeKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
   changeMetric(e) { this.setData({ metricKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
+  goBmiGuide() { wx.navigateTo({ url: '/pages/bmiGuide/bmiGuide' }) },
   buildBmiScale(bmiValue) {
     const sections = [
       { key: 'low', name: '偏低', range: '<18.5', min: 0, max: 18.5 },

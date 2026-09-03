@@ -1,0 +1,46 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">BMI 小科普</text>
+    <text class="hero-sub">用轻松的方式，认识你的身体指标</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">什么是 BMI</text>
+    <text class="block-body">BMI（身体质量指数）是世界卫生组织推荐的简易筛查工具，用体重（kg）除以身高（m）的平方得出。它能快速判断体重是否在健康范围，但不能区分脂肪和肌肉。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">中国成人 BMI 标准</text>
+    <view class="legend">
+      <view class="legend-row"><view class="legend-dot low"></view><text class="legend-text">偏低　＜18.5</text></view>
+      <view class="legend-row"><view class="legend-dot normal"></view><text class="legend-text">正常　18.5~23.9</text></view>
+      <view class="legend-row"><view class="legend-dot over"></view><text class="legend-text">超重　24.0~27.9</text></view>
+      <view class="legend-row"><view class="legend-dot obese"></view><text class="legend-text">肥胖　≥28.0</text></view>
+    </view>
+    <text class="block-note">标准依据《中国成人超重和肥胖症预防控制指南》及国家卫健委 2024 年体重管理核心知识。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">体脂率参考（估算）</text>
+    <view class="table">
+      <view class="tr tr-head"><text class="td">性别</text><text class="td">偏低</text><text class="td">标准</text><text class="td">偏高</text><text class="td">肥胖</text></view>
+      <view class="tr"><text class="td">男性</text><text class="td">＜10%</text><text class="td">10~20%</text><text class="td">20~25%</text><text class="td">≥25%</text></view>
+      <view class="tr"><text class="td">女性</text><text class="td">＜20%</text><text class="td">20~30%</text><text class="td">30~35%</text><text class="td">≥35%</text></view>
+    </view>
+    <text class="block-note">体脂率为估算值，仅供趋势参考，不代表专业体成分测量结果。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">BMI 不是全部</text>
+    <text class="block-body">肌肉量高的人 BMI 可能偏高，但体脂其实很健康；而「瘦胖子」BMI 正常却可能脂肪超标。结合体脂率、腰围和日常状态，才更了解自己的身体。</text>
+  </view>
+
+  <view class="card block tip">
+    <text class="block-title">温柔小建议</text>
+    <text class="block-body">不必每天都盯着数字。规律作息、均衡三餐、适度运动，身体会用更舒服的状态回应你。</text>
+  </view>
+
+  <view class="back-wrap">
+    <view class="back-btn" bindtap="goBack">返回数据页</view>
+  </view>
+</view>

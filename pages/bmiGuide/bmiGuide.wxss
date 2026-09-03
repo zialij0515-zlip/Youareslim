@@ -1,0 +1,33 @@
+.page { padding: 32rpx 32rpx 60rpx; background: #F8F6F1; min-height: 100vh; box-sizing: border-box; }
+
+.hero { padding: 18rpx 8rpx 26rpx; }
+.hero-title { display: block; font-size: 44rpx; font-weight: 700; color: #3E4A42; }
+.hero-sub { display: block; margin-top: 10rpx; font-size: 25rpx; color: #8A938C; }
+
+.card { background: #FFFFFF; border-radius: 26rpx; padding: 30rpx 28rpx; margin-bottom: 22rpx; box-shadow: 0 6rpx 20rpx rgba(79,133,103,0.06); }
+
+.block-title { display: block; font-size: 30rpx; font-weight: 600; color: #3E4A42; margin-bottom: 16rpx; }
+.block-body { font-size: 26rpx; line-height: 1.8; color: #6B736C; }
+.block-note { display: block; margin-top: 16rpx; font-size: 22rpx; line-height: 1.6; color: #9AA39B; }
+
+.legend { display: flex; flex-direction: column; gap: 16rpx; }
+.legend-row { display: flex; align-items: center; gap: 16rpx; }
+.legend-dot { width: 26rpx; height: 26rpx; border-radius: 50%; flex: none; }
+.legend-dot.low { background: #9CC0CF; }
+.legend-dot.normal { background: #7FB892; }
+.legend-dot.over { background: #E0B36A; }
+.legend-dot.obese { background: #D68A8A; }
+.legend-text { font-size: 27rpx; color: #5A625B; }
+
+.table { border-radius: 18rpx; overflow: hidden; border: 1rpx solid #EDEFEA; }
+.tr { display: flex; }
+.tr .td { flex: 1; text-align: center; padding: 20rpx 6rpx; font-size: 24rpx; color: #5A625B; border-right: 1rpx solid #EDEFEA; border-bottom: 1rpx solid #EDEFEA; }
+.tr .td:last-child { border-right: 0; }
+.tr .td:first-child { background: #F4F7F3; color: #3E4A42; font-weight: 600; }
+.tr-head .td { background: #F4F7F3; color: #3E4A42; font-weight: 600; }
+.tr:last-child .td { border-bottom: 0; }
+
+.tip { background: #EFF5EE; }
+
+.back-wrap { margin-top: 10rpx; display: flex; justify-content: center; }
+.back-btn { padding: 20rpx 56rpx; border-radius: 999rpx; background: #4F8567; color: #FFFFFF; font-size: 28rpx; font-weight: 600; }
