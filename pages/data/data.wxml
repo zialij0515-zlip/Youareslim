@@ -4,13 +4,19 @@
 
   <view class="stats">
     <view class="card stat">
-      <text class="stat-label">当前 BMI</text>
-      <text class="stat-value">{{latest.bmi || '—'}}</text>
+      <text class="stat-label">BMI 指数</text>
+      <view class="stat-main">
+        <text class="stat-value">{{latest.bmi || '—'}}</text>
+        <text class="stat-badge" wx:if="{{bmiLabel}}">{{bmiLabel}}</text>
+      </view>
       <text class="stat-hint">{{latest.bmi ? '估算值' : '待记录'}}</text>
     </view>
     <view class="card stat">
-      <text class="stat-label">估算体脂</text>
-      <text class="stat-value">{{latest.bodyFat || '—'}}<text class="stat-unit" wx:if="{{latest.bodyFat}}">%</text></text>
+      <text class="stat-label">体脂率</text>
+      <view class="stat-main">
+        <text class="stat-value">{{latest.bodyFat || '—'}}<text class="stat-unit" wx:if="{{latest.bodyFat}}">%</text></text>
+        <text class="stat-badge" wx:if="{{bodyFatLabel}}">{{bodyFatLabel}}</text>
+      </view>
       <text class="stat-hint">仅供趋势参考</text>
     </view>
   </view>

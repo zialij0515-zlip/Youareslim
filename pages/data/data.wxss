@@ -1,8 +1,10 @@
 .stats { display: flex; gap: 18rpx; margin: 30rpx 0; }
 .stat { flex: 1; padding: 26rpx; display: flex; flex-direction: column; gap: 9rpx; color: #738179; font-size: 24rpx; }
 .stat-label { font-size: 24rpx; color: #738179; }
+.stat-main { display: flex; align-items: center; gap: 12rpx; flex-wrap: wrap; }
 .stat-value { font-size: 48rpx; color: #355A43; font-weight: 600; }
 .stat-unit { font-size: 23rpx; }
+.stat-badge { padding: 6rpx 14rpx; border-radius: 16rpx; background: #E8F0E6; color: #4F8567; font-size: 24rpx; font-weight: 500; }
 .stat-hint { font-size: 20rpx; color: #929B94; }
 
 .insight { padding: 28rpx; display: grid; grid-template-columns: 1fr auto; gap: 13rpx; font-size: 29rpx; }

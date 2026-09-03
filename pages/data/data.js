@@ -1,5 +1,5 @@
 const { getProfile, getBodyRecords, getAllCheckins } = require('../../utils/store')
-const { labelForBmi } = require('../../utils/metrics')
+const { labelForBmi, labelForBodyFat } = require('../../utils/metrics')
 
 const RANGES = {
   week: { key: 'week', name: '近7天', days: 7 },
@@ -40,10 +40,12 @@ Page({
     const checkins = getAllCheckins()
     const days = new Set(checkins.map(i => i.date)).size
     const completion = days ? Math.round(checkins.length / (days * 5) * 100) : 0
+    const bmiLabel = labelForBmi(latest.bmi)
+    const bodyFatLabel = labelForBodyFat(latest.bodyFat, profile.gender)
     const note = latest.weight
-      ? `当前 BMI ${latest.bmi}，${labelForBmi(latest.bmi)}。变化不必每天都线性，持续记录更重要。`
+      ? `当前 BMI ${latest.bmi}，${bmiLabel}。变化不必每天都线性，持续记录更重要。`
       : '先记录一次体重，就能从这里看到属于你的趋势。'
-    this.setData({ profile, latest, completion, note }, () => this.refreshChart())
+    this.setData({ profile, latest, completion, note, bmiLabel, bodyFatLabel }, () => this.refreshChart())
   },
   changeRange(e) { this.setData({ rangeKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
   changeMetric(e) { this.setData({ metricKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
