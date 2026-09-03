@@ -40,10 +40,10 @@
 .sport-name { font-size: 26rpx; color: #4A5C51; flex: none; }
 
 /* 运动时长 */
-.duration-row { display: flex; gap: 12rpx; }
-.duration-item { flex: none; display: flex; align-items: center; gap: 8rpx; padding: 10rpx 16rpx; border-radius: 16rpx; background: #F4F1EC; border: 2rpx solid #E6E1D6; }
+.duration-row { display: flex; gap: 16rpx; }
+.duration-item { flex: 1; display: flex; align-items: center; gap: 10rpx; padding: 14rpx 18rpx; border-radius: 18rpx; background: #F8F8F4; border: 2rpx solid #ECECE6; }
 .duration-name { font-size: 27rpx; color: #4A5C51; flex: none; }
-.duration-min { width: 80rpx; min-width: 0; text-align: center; font-size: 26rpx; font-weight: 600; color: #5D4A49; background: transparent; border-radius: 10rpx; padding: 4rpx 0; }
+.duration-min { width: 80rpx; flex: none; text-align: center; font-size: 28rpx; font-weight: 600; color: #5D4A49; background: #F2F0EB; border-radius: 12rpx; padding: 8rpx 0; }
 .duration-unit { font-size: 24rpx; color: #9A9A90; flex: none; }
 
 /* 已保存提示 */
