@@ -25,7 +25,7 @@
 
     <view class="field-block">
       <text class="field-title">文字记录</text>
-      <textarea placeholder="{{notePlaceholder}}" value="{{note}}" data-key="note" bindinput="input" maxlength="120" style="height:104rpx;min-height:104rpx;"/>
+      <textarea placeholder="{{notePlaceholder}}" value="{{note}}" data-key="note" bindinput="input" maxlength="120" style="height:130rpx;min-height:130rpx;"/>
     </view>
 
     <view class="field-block">
