@@ -16,6 +16,16 @@
           </view>
         </view>
       </view>
+      <view class="field-block">
+        <text class="field-title">运动时长</text>
+        <view class="duration-row">
+          <view wx:for="{{durationItems}}" wx:key="key" class="duration-item">
+            <text class="duration-name">{{item.name}}</text>
+            <input class="duration-min" type="number" placeholder="多少" value="{{durations[item.key]}}" data-key="{{item.key}}" bindinput="inputDuration"/>
+            <text class="duration-unit">min</text>
+          </view>
+        </view>
+      </view>
     </block>
     <block wx:else>
       <view class="field-block">
