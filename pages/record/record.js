@@ -3,8 +3,19 @@ const { bmi, bodyFat } = require('../../utils/metrics')
 const { uploadImages, syncCheckin, syncBodyRecord, enabled } = require('../../utils/cloud')
 Page({
   data: { activeType:'breakfast', typeOptions:[{key:'breakfast',name:'早餐'},{key:'lunch',name:'午餐'},{key:'dinner',name:'晚餐'},{key:'sport',name:'运动'},{key:'treat',name:'放纵餐'}], mealMoods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], sportMoods:[{key:'full',name:'运动达标',icon:'/assets/record/mood-full.png'},{key:'good',name:'浅浅运动',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'没有运动',icon:'/assets/record/mood-hungry.png'}], moods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], mood:'good', note:'', images:[], sampleImages:['/assets/record/food1.png','/assets/record/food2.png'], notePlaceholder:'记录食物和心情', saved:false, weight:'', inputWidth:170, bmiValue:'', weightLoss:'', dayCount:0, mealRate:0, sportRate:0 },
-  onLoad(){ this.computeWeekStats(); this.computeDayCount(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w), inputWidth:this.weightInputWidth(String(w))},()=>this.computeWeightStats()); } else { this.computeWeightStats(); } },
-  chooseType(e){ const t=e.currentTarget.dataset.key; const sport=t==='sport'; this.setData({activeType:t, saved:false, moods: sport?this.data.sportMoods:this.data.mealMoods, notePlaceholder: sport?'今天进行了有氧、无氧的时长':'记录食物和心情', sampleImages: sport?['/assets/record/sport1.png','/assets/record/sport2.png']:['/assets/record/food1.png','/assets/record/food2.png']}) },
+  onLoad(){ this.typeCache={}; this.computeWeekStats(); this.computeDayCount(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w), inputWidth:this.weightInputWidth(String(w))},()=>this.computeWeightStats()); } else { this.computeWeightStats(); } this.loadType(this.data.activeType); },
+  chooseType(e){ const prev=this.data.activeType; this.typeCache[prev]={note:this.data.note,mood:this.data.mood,images:this.data.images,saved:this.data.saved}; const t=e.currentTarget.dataset.key; this.loadType(t); },
+  loadType(t){
+    const sport=t==='sport';
+    const base={note:'',mood:'good',images:[],saved:false};
+    let draft=this.typeCache[t];
+    if(!draft){
+      const saved=getAllCheckins().filter(c=>c.date===today()&&c.type===t).slice(-1)[0];
+      if(saved) draft={note:saved.note||'',mood:saved.mood||'good',images:saved.images||[],saved:true};
+    }
+    const state=draft||base;
+    this.setData({activeType:t,...state,moods:sport?this.data.sportMoods:this.data.mealMoods,notePlaceholder:sport?'今天进行了有氧、无氧的时长':'记录食物和心情',sampleImages:sport?['/assets/record/sport1.png','/assets/record/sport2.png']:['/assets/record/food1.png','/assets/record/food2.png']});
+  },
   chooseMood(e){ this.setData({mood:e.currentTarget.dataset.key, saved:false}) },
   input(e){ const key=e.currentTarget.dataset.key; const value=e.detail.value; const patch={[key]:value, saved:false}; if(key==='weight'){ patch.inputWidth=this.weightInputWidth(value); this.setData(patch,()=>this.computeWeightStats()); } else { this.setData(patch); } },
   chooseImage(){ wx.chooseMedia({count:3,mediaType:['image'],success:res=>this.setData({images:res.tempFiles.map(f=>f.tempFilePath), saved:false})}) },
@@ -97,6 +108,6 @@ Page({
     }
     this.setData({bmiValue, weightLoss});
   },
-  async saveCheckin(){ const type=this.data.activeType; if (type === 'sport' && !this.data.note) return wx.showToast({title:'请写下运动内容或时长',icon:'none'}); const record={date:today(),type,mood:this.data.mood,note:this.data.note,images:this.data.images}; addCheckin(record); this.setData({saved:true}); this.computeWeekStats(); if(!enabled()) return wx.showToast({title:'已保存到本地'}); wx.showLoading({title:'正在同步'}); try { record.images=await uploadImages(record.images); await syncCheckin(record); wx.showToast({title:'已保存并同步'}) } catch(error) { console.warn('打卡同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } finally { wx.hideLoading() } },
+  async saveCheckin(){ const type=this.data.activeType; if (type === 'sport' && !this.data.note) return wx.showToast({title:'请写下运动内容或时长',icon:'none'}); const record={date:today(),type,mood:this.data.mood,note:this.data.note,images:this.data.images}; addCheckin(record); this.typeCache[type]={note:record.note,mood:record.mood,images:record.images,saved:true}; this.setData({saved:true}); this.computeWeekStats(); this.computeDayCount(); if(!enabled()) return wx.showToast({title:'已保存到本地'}); wx.showLoading({title:'正在同步'}); try { record.images=await uploadImages(record.images); await syncCheckin(record); wx.showToast({title:'已保存并同步'}) } catch(error) { console.warn('打卡同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } finally { wx.hideLoading() } },
   async saveWeight(){ const weight=Number(this.data.weight); const p=getProfile(); if(!weight) return wx.showToast({title:'请输入有效体重',icon:'none'}); const bmiValue=bmi(weight,p.height); const record={date:today(),weight,bmi:bmiValue,bodyFat:bodyFat({gender:p.gender,age:p.age,bmiValue})}; addBodyRecord(record); this.computeWeightStats(); if(!enabled()) return wx.showToast({title:'身体数据已更新'}); try { await syncBodyRecord(record); wx.showToast({title:'已更新并同步'}) } catch(error) { console.warn('身体数据同步失败',error); wx.showToast({title:'已本地保存，待同步',icon:'none'}) } }
 })

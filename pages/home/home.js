@@ -71,7 +71,7 @@ Page({
       const diff = Math.round((current - sorted[sorted.length - 2].weight) * 10) / 10
       changeArrow = diff > 0 ? '↑' : (diff < 0 ? '↓' : '→')
       changeClass = diff > 0 ? 'up' : (diff < 0 ? 'down' : 'flat')
-      changeText = diff > 0 ? `+${diff}` : `${diff}`
+      changeText = String(Math.abs(diff))
     }
     const continuous = computeStreak(getAllCheckins())
     const checkins = getCheckins()
@@ -100,11 +100,13 @@ Page({
     this.loadCloud()
   },
   record(e) {
+    const type = e.currentTarget.dataset.type
     wx.switchTab({ url: '/pages/record/record' })
     setTimeout(() => {
       const pages = getCurrentPages()
       const page = pages[pages.length - 1]
-      if (page && page.setData) page.setData({ activeType: e.currentTarget.dataset.type })
+      if (page && page.setData) page.setData({ activeType: type })
+      if (page && page.loadType) page.loadType(type)
     }, 300)
   },
   openTip(e) {

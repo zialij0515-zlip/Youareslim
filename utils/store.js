@@ -9,6 +9,6 @@ function saveProfile(patch) { return write(KEYS.profile, { ...ensureProfile(), .
 function getBodyRecords() { return read(KEYS.body, []) }
 function addBodyRecord(record) { const records = getBodyRecords().filter(item => item.date !== record.date); records.push(record); records.sort((a,b) => a.date.localeCompare(b.date)); return write(KEYS.body, records) }
 function getCheckins(date = today()) { return read(KEYS.checkins, []).filter(item => item.date === date) }
-function addCheckin(item) { const all = read(KEYS.checkins, []); const next = [...all, { id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, createdAt: Date.now(), ...item }]; return write(KEYS.checkins, next) }
+function addCheckin(item) { const all = read(KEYS.checkins, []).filter(c => !(c.date === item.date && c.type === item.type)); const next = [...all, { id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, createdAt: Date.now(), ...item }]; return write(KEYS.checkins, next) }
 function getAllCheckins() { return read(KEYS.checkins, []) }
 module.exports = { today, ensureProfile, getProfile, saveProfile, getBodyRecords, addBodyRecord, getCheckins, addCheckin, getAllCheckins }
