@@ -1,6 +1,24 @@
 const { getProfile, getBodyRecords, getAllCheckins } = require('../../utils/store')
 const { labelForBmi, labelForBodyFat } = require('../../utils/metrics')
 
+// ===== 预览用假数据开关：true 时数据页展示编造数据，便于看 UI 效果；正式使用时改回 false =====
+const USE_FAKE_DATA = true
+const FAKE_RECORDS = (() => {
+  const arr = []
+  for (let i = 0; i < 10; i++) {
+    const mm = String(9).padStart(2, '0')
+    const dd = String(2 + i).padStart(2, '0')
+    const date = `2026-${mm}-${dd}`
+    const weight = 60 - i
+    const bmi = Number((18.5 + Math.random() * 9.5).toFixed(1)) // 18.5~28.0 随机
+    arr.push({ date, weight, bmi })
+  }
+  return arr
+})()
+function sourceRecords() {
+  return USE_FAKE_DATA ? FAKE_RECORDS : getBodyRecords()
+}
+
 const RANGES = {
   week: { key: 'week', name: '近7天', days: 7 },
   month: { key: 'month', name: '近30天', days: 30 },
@@ -43,7 +61,7 @@ Page({
   },
   onShow() {
     const profile = getProfile()
-    const all = getBodyRecords()
+    const all = sourceRecords()
     const latest = all[all.length - 1] || {}
     const bmiLabel = labelForBmi(latest.bmi)
     const bodyFatLabel = labelForBodyFat(latest.bodyFat, profile.gender)
@@ -91,7 +109,7 @@ Page({
   refreshChart() {
     const metric = METRICS[this.data.metricKey]
     const range = RANGES[this.data.rangeKey]
-    const records = filterByRange(getBodyRecords(), range.days).filter(r => Number.isFinite(metric.get(r)))
+    const records = filterByRange(sourceRecords(), range.days).filter(r => Number.isFinite(metric.get(r)))
     this.setData({ records, hasData: records.length > 0 }, () => this.drawChart(metric, records))
   },
   drawChart(metric, records) {
