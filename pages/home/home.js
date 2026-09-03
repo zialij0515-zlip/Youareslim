@@ -83,7 +83,7 @@ Page({
         type, label: meta.label, icon: meta.icon, color: meta.color,
         done: !!c,
         sub: isSport
-          ? (c ? (c.note || '已记录') : '记录运动')
+          ? (c ? (c.sportItems && c.sportItems.filter(i => i.selected).length ? `${c.sportItems.filter(i => i.selected).length}项运动` : '已记录') : '记录运动')
           : (c ? '已完成' : '未完成'),
         showCheck: !isSport && !!c
       }
