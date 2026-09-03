@@ -28,27 +28,65 @@ function dpr() {
 
 Page({
   data: {
-    profile: {}, latest: {}, records: [], completion: 0, note: '',
+    profile: {}, latest: {}, records: [],
     rangeKey: 'week', rangeOptions: Object.values(RANGES),
     metricKey: 'weight', metricOptions: Object.values(METRICS),
-    hasData: false
+    hasData: false,
+    bmiSections: [
+      { key: 'low', name: '偏低', range: '<18.5', active: false },
+      { key: 'normal', name: '正常', range: '18.5~23.9', active: false },
+      { key: 'overweight', name: '超重', range: '24.0~27.9', active: false },
+      { key: 'obese', name: '肥胖', range: '≥28.0', active: false }
+    ],
+    bmiPointerLeft: 0,
+    bmiAdvice: '先记录一次体重，就能从这里看到属于你的 BMI 趋势。'
   },
   onShow() {
     const profile = getProfile()
     const all = getBodyRecords()
     const latest = all[all.length - 1] || {}
-    const checkins = getAllCheckins()
-    const days = new Set(checkins.map(i => i.date)).size
-    const completion = days ? Math.round(checkins.length / (days * 5) * 100) : 0
     const bmiLabel = labelForBmi(latest.bmi)
     const bodyFatLabel = labelForBodyFat(latest.bodyFat, profile.gender)
-    const note = latest.weight
-      ? `当前 BMI ${latest.bmi}，${bmiLabel}。变化不必每天都线性，持续记录更重要。`
-      : '先记录一次体重，就能从这里看到属于你的趋势。'
-    this.setData({ profile, latest, completion, note, bmiLabel, bodyFatLabel }, () => this.refreshChart())
+    const scale = this.buildBmiScale(latest.bmi)
+    this.setData({ profile, latest, bmiLabel, bodyFatLabel, bmiSections: scale.sections, bmiPointerLeft: scale.pointerLeft, bmiAdvice: scale.advice }, () => this.refreshChart())
   },
   changeRange(e) { this.setData({ rangeKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
   changeMetric(e) { this.setData({ metricKey: e.currentTarget.dataset.key }, () => this.refreshChart()) },
+  buildBmiScale(bmiValue) {
+    const sections = [
+      { key: 'low', name: '偏低', range: '<18.5', min: 0, max: 18.5 },
+      { key: 'normal', name: '正常', range: '18.5~23.9', min: 18.5, max: 24 },
+      { key: 'overweight', name: '超重', range: '24.0~27.9', min: 24, max: 28 },
+      { key: 'obese', name: '肥胖', range: '≥28.0', min: 28, max: 35 }
+    ]
+    const adviceMap = {
+      low: '你的 BMI 偏低，注意均衡营养，保持健康体重哦！',
+      normal: '你的 BMI 处于正常范围，继续保持良好的生活习惯哦！',
+      overweight: '你的 BMI 处于超重范围，适当调整饮食和运动会更棒！',
+      obese: '你的 BMI 处于肥胖范围，建议循序渐进地改善饮食和运动。'
+    }
+    const v = Number(bmiValue)
+    let activeKey = ''
+    let pointerLeft = 0
+    if (!Number.isFinite(v)) {
+      return { sections: sections.map(s => ({ ...s, active: false })), pointerLeft: 0, advice: '先记录一次体重，就能从这里看到属于你的 BMI 趋势。' }
+    }
+    sections.forEach((s, i) => {
+      const active = i === sections.length - 1 ? v >= s.min : (v >= s.min && v < s.max)
+      s.active = active
+      if (active && !activeKey) activeKey = s.key
+    })
+    if (v < 18.5) {
+      pointerLeft = Math.max(0, Math.min(25, (v / 18.5) * 25))
+    } else if (v < 24) {
+      pointerLeft = 25 + ((v - 18.5) / (24 - 18.5)) * 25
+    } else if (v < 28) {
+      pointerLeft = 50 + ((v - 24) / (28 - 24)) * 25
+    } else {
+      pointerLeft = Math.min(100, 75 + ((v - 28) / (35 - 28)) * 25)
+    }
+    return { sections, pointerLeft, advice: adviceMap[activeKey] || '持续记录，了解自己的身体变化。' }
+  },
   refreshChart() {
     const metric = METRICS[this.data.metricKey]
     const range = RANGES[this.data.rangeKey]

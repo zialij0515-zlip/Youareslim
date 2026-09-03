@@ -21,10 +21,23 @@
     </view>
   </view>
 
-  <view class="card insight">
-    <text class="insight-label">本周打卡完成度</text>
-    <text class="score">{{completion}}%</text>
-    <text class="muted">{{note}}</text>
+  <view class="card bmi-scale">
+    <view class="bmi-scale-title">
+      <text class="bmi-scale-label">BMI标准范围</text>
+      <view class="bmi-help">?</view>
+    </view>
+    <view class="bmi-scale-bar-wrap">
+      <view class="bmi-pointer" style="left: {{bmiPointerLeft}}%;" wx:if="{{latest.bmi}}">
+        <view class="bmi-pointer-icon"></view>
+      </view>
+      <view class="bmi-scale-bar">
+        <view wx:for="{{bmiSections}}" wx:key="key" class="bmi-section {{item.active?'active':''}}">
+          <text class="bmi-section-name">{{item.name}}</text>
+          <text class="bmi-section-range">{{item.range}}</text>
+        </view>
+      </view>
+    </view>
+    <text class="bmi-advice">{{bmiAdvice}}</text>
   </view>
 
   <view class="toolbar">
