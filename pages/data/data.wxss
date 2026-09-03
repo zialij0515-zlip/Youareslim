@@ -11,7 +11,7 @@
 .bmi-scale { padding: 28rpx; display: flex; flex-direction: column; gap: 18rpx; }
 .bmi-scale-title { display: flex; align-items: center; gap: 10rpx; }
 .bmi-scale-label { font-size: 29rpx; color: #3E3E3E; font-weight: 600; }
-.bmi-help { width: 32rpx; height: 32rpx; border-radius: 50%; border: 2rpx solid #C8C8C8; display: flex; align-items: center; justify-content: center; font-size: 22rpx; color: #999; }
+.bmi-help { width: 34rpx; height: 34rpx; border-radius: 50%; border: 2rpx solid #E2DAF0; background: #F0ECF8; display: flex; align-items: center; justify-content: center; font-size: 23rpx; color: #8E7AB8; }
 .bmi-scale-bar-wrap { position: relative; padding-top: 28rpx; }
 .bmi-scale-bar { display: flex; border-radius: 16rpx; overflow: hidden; }
 .bmi-section { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 16rpx 0 14rpx; gap: 4rpx; }
