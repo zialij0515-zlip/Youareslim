@@ -44,11 +44,15 @@
 .ring-percent { position: absolute; font-size: 28rpx; font-weight: 700; color: #25342B; }
 .ring-label { font-size: 24rpx; color: #5E5668; }
 
-/* 数据更新：高度对齐本周完成率，字体整体放大 */
+/* 数据更新：参考图样式，当前体重 + 大数字 + BMI + 累计减重 */
 .data-section-title { margin-top: 34rpx; font-size: 38rpx; }
-.weight { padding: 44rpx 22rpx; display: flex; align-items: center; gap: 12rpx; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
-.weight-label { font-size: 32rpx; color: #6B4F4D; font-weight: 600; flex: none; }
-.weight-input-wrap { flex: 1; display: flex; align-items: center; justify-content: flex-start; gap: 4rpx; }
-.weight-input-wrap input { text-align: left; font-size: 34rpx; font-weight: 700; color: #5D4A49; width: 90rpx; }
-.weight-unit { font-size: 30rpx; color: #8D7876; }
+.weight { padding: 30rpx 28rpx; display: flex; flex-direction: column; align-items: flex-start; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
+.weight-header { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+.weight-label { font-size: 32rpx; color: #6B4F4D; font-weight: 600; }
+.weight-main { display: flex; align-items: baseline; gap: 20rpx; margin-top: 16rpx; }
+.weight-value { display: flex; align-items: baseline; gap: 8rpx; }
+.weight-value input { text-align: left; font-size: 64rpx; font-weight: 700; color: #5D4A49; width: 220rpx; height: auto; min-height: 0; background: transparent; padding: 0; margin: 0; }
+.weight-unit { font-size: 32rpx; color: #7A5A58; }
+.bmi-text { font-size: 28rpx; color: #8D7876; }
+.weight-loss { margin-top: 16rpx; font-size: 24rpx; color: #9A8A88; }
 button.update-button { width: auto; min-width: 90rpx; padding: 0 22rpx !important; margin: 0 !important; font-size: 30rpx; font-weight: 600; line-height: 60rpx; border-radius: 22rpx; background: #EAD4D2 !important; color: #7A5A58; }

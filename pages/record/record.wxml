@@ -62,11 +62,17 @@
 
   <view class="section-title data-section-title">数据更新</view>
   <view class="card weight">
-    <text class="weight-label">目前体重</text>
-    <view class="weight-input-wrap">
-      <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input"/>
-      <text class="weight-unit">kg</text>
+    <view class="weight-header">
+      <text class="weight-label">当前体重</text>
+      <button class="update-button" bindtap="saveWeight">更新</button>
     </view>
-    <button class="update-button" bindtap="saveWeight">更新</button>
+    <view class="weight-main">
+      <view class="weight-value">
+        <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input"/>
+        <text class="weight-unit">kg</text>
+      </view>
+      <text class="bmi-text">BMI {{bmiValue}}</text>
+    </view>
+    <text class="weight-loss">已累计减重 {{weightLoss}}kg</text>
   </view>
 </view>
