@@ -65,7 +65,7 @@
     <text class="weight-label">当前体重</text>
     <view class="weight-row">
       <view class="weight-value">
-        <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input" bindblur="saveWeight"/>
+        <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input" bindblur="saveWeight" style="width:{{inputWidth}}rpx;"/>
         <text class="weight-unit">kg</text>
       </view>
       <view class="bmi-badge">

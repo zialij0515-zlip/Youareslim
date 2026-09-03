@@ -2,11 +2,11 @@ const { today, addCheckin, addBodyRecord, getProfile, getBodyRecords, getAllChec
 const { bmi, bodyFat } = require('../../utils/metrics')
 const { uploadImages, syncCheckin, syncBodyRecord, enabled } = require('../../utils/cloud')
 Page({
-  data: { activeType:'breakfast', typeOptions:[{key:'breakfast',name:'早餐'},{key:'lunch',name:'午餐'},{key:'dinner',name:'晚餐'},{key:'sport',name:'运动'},{key:'treat',name:'放纵餐'}], mealMoods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], sportMoods:[{key:'full',name:'运动达标',icon:'/assets/record/mood-full.png'},{key:'good',name:'浅浅运动',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'没有运动',icon:'/assets/record/mood-hungry.png'}], moods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], mood:'good', note:'', images:[], sampleImages:['/assets/record/food1.png','/assets/record/food2.png'], notePlaceholder:'记录食物和心情', saved:false, weight:'', bmiValue:'', weightLoss:'', mealRate:0, sportRate:0 },
-  onLoad(){ this.computeWeekStats(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w)}) } this.computeWeightStats(); },
+  data: { activeType:'breakfast', typeOptions:[{key:'breakfast',name:'早餐'},{key:'lunch',name:'午餐'},{key:'dinner',name:'晚餐'},{key:'sport',name:'运动'},{key:'treat',name:'放纵餐'}], mealMoods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], sportMoods:[{key:'full',name:'运动达标',icon:'/assets/record/mood-full.png'},{key:'good',name:'浅浅运动',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'没有运动',icon:'/assets/record/mood-hungry.png'}], moods:[{key:'full',name:'很满足',icon:'/assets/record/mood-full.png'},{key:'good',name:'好吃',icon:'/assets/record/mood-good.png'},{key:'hungry',name:'有点饿',icon:'/assets/record/mood-hungry.png'}], mood:'good', note:'', images:[], sampleImages:['/assets/record/food1.png','/assets/record/food2.png'], notePlaceholder:'记录食物和心情', saved:false, weight:'', inputWidth:170, bmiValue:'', weightLoss:'', mealRate:0, sportRate:0 },
+  onLoad(){ this.computeWeekStats(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w), inputWidth:this.weightInputWidth(String(w))},()=>this.computeWeightStats()); } else { this.computeWeightStats(); } },
   chooseType(e){ const t=e.currentTarget.dataset.key; const sport=t==='sport'; this.setData({activeType:t, saved:false, moods: sport?this.data.sportMoods:this.data.mealMoods, notePlaceholder: sport?'今天进行了有氧、无氧的时长':'记录食物和心情', sampleImages: sport?['/assets/record/sport1.png','/assets/record/sport2.png']:['/assets/record/food1.png','/assets/record/food2.png']}) },
   chooseMood(e){ this.setData({mood:e.currentTarget.dataset.key, saved:false}) },
-  input(e){ const key=e.currentTarget.dataset.key; this.setData({[key]:e.detail.value, saved:false}); if(key==='weight') this.computeWeightStats(); },
+  input(e){ const key=e.currentTarget.dataset.key; const value=e.detail.value; const patch={[key]:value, saved:false}; if(key==='weight'){ patch.inputWidth=this.weightInputWidth(value); this.setData(patch,()=>this.computeWeightStats()); } else { this.setData(patch); } },
   chooseImage(){ wx.chooseMedia({count:3,mediaType:['image'],success:res=>this.setData({images:res.tempFiles.map(f=>f.tempFilePath), saved:false})}) },
   previewImage(e){ wx.previewImage({urls:this.data.images,current:this.data.images[e.currentTarget.dataset.idx]}) },
   computeWeekStats(){
@@ -64,6 +64,13 @@ Page({
       ctx.strokeStyle=color
       ctx.stroke()
     })
+  },
+  weightInputWidth(value){
+    const len=String(value).length;
+    if(!len||len<=2) return 120;
+    if(len<=3) return 160;
+    if(len<=4) return 200;
+    return 240;
   },
   computeWeightStats(){
     const p=getProfile(); const weight=Number(this.data.weight);
