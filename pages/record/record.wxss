@@ -45,14 +45,13 @@
 .ring-label { font-size: 24rpx; color: #5E5668; }
 
 /* 数据更新：参考图样式，当前体重 + 大数字 + BMI + 累计减重 */
-.data-section-title { margin-top: 34rpx; font-size: 38rpx; }
+.data-section-title { margin-top: 34rpx; font-size: 38rpx; display: flex; align-items: baseline; gap: 12rpx; }
+.section-subtitle { font-size: 24rpx; color: #9A8A88; font-weight: 400; }
 .weight { padding: 30rpx 28rpx; display: flex; flex-direction: column; align-items: flex-start; background: #F7EDEC; border: 1rpx solid #EFE2E0; box-shadow: none; }
-.weight-header { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 .weight-label { font-size: 32rpx; color: #6B4F4D; font-weight: 600; }
-.weight-main { display: flex; align-items: baseline; gap: 20rpx; margin-top: 16rpx; }
-.weight-value { display: flex; align-items: baseline; gap: 8rpx; }
-.weight-value input { text-align: left; font-size: 64rpx; font-weight: 700; color: #5D4A49; width: 220rpx; height: auto; min-height: 0; background: transparent; padding: 0; margin: 0; }
-.weight-unit { font-size: 32rpx; color: #7A5A58; }
-.bmi-text { font-size: 28rpx; color: #8D7876; }
-.weight-loss { margin-top: 16rpx; font-size: 24rpx; color: #9A8A88; }
-button.update-button { width: auto; min-width: 90rpx; padding: 0 22rpx !important; margin: 0 !important; font-size: 30rpx; font-weight: 600; line-height: 60rpx; border-radius: 22rpx; background: #EAD4D2 !important; color: #7A5A58; }
+.weight-value { display: flex; align-items: baseline; gap: 2rpx; margin-top: 16rpx; }
+.weight-value input { text-align: left; font-size: 80rpx; font-weight: 700; color: #5D4A49; width: 260rpx; height: auto; min-height: 0; background: transparent; padding: 0; margin: 0; }
+.weight-unit { font-size: 34rpx; color: #7A5A58; }
+.bmi-banner { margin-top: 18rpx; width: 100%; box-sizing: border-box; }
+.bmi-text { font-size: 28rpx; color: #6B4F4D; font-weight: 600; }
+.weight-loss { margin-top: 14rpx; font-size: 26rpx; color: #6B4F4D; font-weight: 600; }
