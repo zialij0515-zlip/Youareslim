@@ -6,6 +6,7 @@ Page({
   onLoad(){ this.typeCache={}; this.computeWeekStats(); this.computeDayCount(); const records=getBodyRecords(); if(records.length){ const w=records[records.length-1].weight; this.setData({weight:String(w), inputWidth:this.weightInputWidth(String(w))},()=>this.computeWeightStats()); } else { this.computeWeightStats(); } this.loadType(this.data.activeType); },
   chooseType(e){ const prev=this.data.activeType; this.typeCache[prev]={note:this.data.note,mood:this.data.mood,images:this.data.images,sportItems:this.data.sportItems,durations:this.data.durations,saved:this.data.saved}; const t=e.currentTarget.dataset.key; this.loadType(t); },
   defaultSportItems(){ return this.data.sportOptions.map(o=>({key:o.key,name:o.name,selected:false})); },
+  normalizeSportItems(items){ return this.data.sportOptions.map(o=>{ const old=(items||[]).find(it=>it.key===o.key); return {key:o.key,name:o.name,selected:!!(old&&old.selected),minutes:(old&&old.minutes)||''}; }); },
   loadType(t){
     const sport=t==='sport';
     const base={note:'',mood:'good',images:[],sportItems:this.defaultSportItems(),durations:{aerobic:'',anaerobic:''},saved:false};
@@ -14,7 +15,8 @@ Page({
       const saved=getAllCheckins().filter(c=>c.date===today()&&c.type===t).slice(-1)[0];
       if(saved) draft={note:saved.note||'',mood:saved.mood||'good',images:saved.images||[],sportItems:saved.sportItems&&saved.sportItems.length?saved.sportItems:this.defaultSportItems(),durations:saved.durations||{aerobic:'',anaerobic:''},saved:true};
     }
-    const state=draft||base;
+    const state=draft?{...draft}:base;
+    if(state.sportItems){ state.sportItems=this.normalizeSportItems(state.sportItems); }
     this.setData({activeType:t,...state,moods:sport?this.data.sportMoods:this.data.mealMoods,notePlaceholder:sport?'选择今天的运动项目':'记录食物和心情',sampleImages:sport?['/assets/record/sport1.png','/assets/record/sport2.png']:['/assets/record/food1.png','/assets/record/food2.png']});
   },
   toggleSport(e){ const key=e.currentTarget.dataset.key; const items=this.data.sportItems.map(it=>it.key===key?{...it,selected:!it.selected}:it); this.setData({sportItems:items,saved:false}); },
