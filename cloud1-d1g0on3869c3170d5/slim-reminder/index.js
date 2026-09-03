@@ -19,6 +19,9 @@ exports.main = async (event) => {
   if (!TEMPLATE_ID) {
     return { skipped: true, reason: 'TEMPLATE_ID 未配置，请在 index.js 填写' }
   }
+  // 诊断：打印云函数运行上下文，确认 AppID/环境是否正确
+  const wxCtx = cloud.getWXContext()
+  console.log('[reminder] WXContext', JSON.stringify({ appid: wxCtx.APPID, openid: wxCtx.OPENID, unionid: wxCtx.UNIONID, env: wxCtx.ENV }))
   const subs = await db.collection('reminder_subs').get()
   let sent = 0
   const timeStr = beijingTimeString()
