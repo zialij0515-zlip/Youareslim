@@ -1,5 +1,6 @@
 const cloud = require('wx-server-sdk')
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+// 固定使用当前云环境 ID（定时触发器下 DYNAMIC_CURRENT_ENV 可能解析异常）
+cloud.init({ env: 'cloud1-d1g0on3869c3170d5' })
 const db = cloud.database()
 
 // 订阅消息「打卡提醒」模板 ID（与 pages/profile/profile.js 的 REMIND_TEMPLATE_ID 保持一致）
