@@ -2,7 +2,7 @@ const { getProfile, getBodyRecords, getAllCheckins } = require('../../utils/stor
 const { labelForBmi, labelForBodyFat } = require('../../utils/metrics')
 
 // ===== 预览用假数据开关：true 时数据页展示编造数据，便于看 UI 效果；正式使用时改回 false =====
-const USE_FAKE_DATA = true
+const USE_FAKE_DATA = false
 const FAKE_RECORDS = (() => {
   const arr = []
   for (let i = 0; i < 10; i++) {
