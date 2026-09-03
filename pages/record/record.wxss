@@ -22,7 +22,7 @@
 .add-text { color: #C4A57F; font-size: 24rpx; }
 
 /* 文字记录：高度压到原本一半 */
-.form textarea { background: #F8F8F4; width: 100%; min-height: 36rpx; box-sizing: border-box; padding: 6rpx 14rpx; border-radius: 14rpx; font-size: 26rpx; line-height: 1.2; }
+.form textarea { background: #F8F8F4; width: 100%; min-height: 36rpx; box-sizing: border-box; padding: 14rpx 18rpx; border-radius: 14rpx; font-size: 26rpx; line-height: 1.2; }
 
 /* 今日感受 */
 .mood-row { display: flex; justify-content: space-around; align-items: center; }
