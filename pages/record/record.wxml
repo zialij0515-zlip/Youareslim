@@ -74,7 +74,7 @@
         </view>
       </view>
       <view class="day-badge">
-        <text class="day-text">已打卡</text>
+        <text class="day-text">已经坚持</text>
         <view class="day-count-row">
           <text class="day-count">{{dayCount}}</text>
           <text class="day-unit">天</text>
