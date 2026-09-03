@@ -54,6 +54,31 @@
     <view wx:if="{{!hasData}}" class="empty">这个时间段还没有数据，先去记录吧～</view>
   </view>
 
+  <text class="section-title">最近记录（7次）</text>
+  <view class="card trend">
+    <block wx:if="{{records.length}}">
+      <view class="row header">
+        <text class="row-date">日期</text>
+        <text class="row-weight">体重</text>
+        <text class="row-bmi">BMI指数</text>
+      </view>
+      <view wx:for="{{records}}" wx:key="date" class="row">
+        <text class="row-date">{{item.date}}</text>
+        <text class="row-weight">{{item.weight}} kg</text>
+        <text class="row-bmi">{{item.bmi}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty">暂无身体数据</view>
+    </block>
+  </view>
+</view>
+
+  <view class="card chart-card">
+    <canvas type="2d" id="chart" class="chart"></canvas>
+    <view wx:if="{{!hasData}}" class="empty">这个时间段还没有数据，先去记录吧～</view>
+  </view>
+
   <text class="section-title">最近 7 次身体记录</text>
   <view class="card trend">
     <block wx:if="{{records.length}}">
