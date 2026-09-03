@@ -10,6 +10,7 @@
 .form { padding: 30rpx; display: flex; flex-direction: column; gap: 28rpx; }
 .field-block { display: flex; flex-direction: column; gap: 16rpx; }
 .field-title { font-size: 29rpx; font-weight: 600; color: #4A5C51; }
+.field-title-sm { font-size: 26rpx; font-weight: 400; color: #6B6B6B; }
 
 /* 添加照片 */
 .image-row { display: flex; gap: 16rpx; align-items: center; }

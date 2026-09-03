@@ -8,7 +8,7 @@
   <view class="card form">
     <block wx:if="{{activeType==='sport'}}">
       <view class="field-block">
-        <text class="field-title">运动项目（可多选）</text>
+        <text class="field-title-sm">运动项目（可多选）</text>
         <view class="sport-options">
           <view wx:for="{{sportItems}}" wx:key="key" class="sport-option {{item.selected?'selected':''}}" data-key="{{item.key}}" bindtap="toggleSport">
             <view class="sport-check"><text wx:if="{{item.selected}}">✓</text></view>
@@ -17,11 +17,11 @@
         </view>
       </view>
       <view class="field-block">
-        <text class="field-title">运动时长</text>
+        <text class="field-title-sm">运动时长</text>
         <view class="duration-row">
           <view wx:for="{{durationItems}}" wx:key="key" class="duration-item">
             <text class="duration-name">{{item.name}}</text>
-            <input class="duration-min" type="number" placeholder="多少" value="{{durations[item.key]}}" data-key="{{item.key}}" bindinput="inputDuration"/>
+            <input class="duration-min" type="number" placeholder="" value="{{durations[item.key]}}" data-key="{{item.key}}" bindinput="inputDuration"/>
             <text class="duration-unit">min</text>
           </view>
         </view>
