@@ -77,22 +77,46 @@
       <view class="tip-text"><text class="tip-name">更好的运动</text><text class="tip-desc">推荐运动，点击了解</text></view>
       <text class="tip-arrow">›</text>
     </view>
-    <view class="card tip-entry" data-tab="share" bindtap="openTip">
+    <view class="card tip-entry" data-tab="diary" bindtap="openTip">
       <image class="tip-icon" src="/assets/icons/tip-share.svg" mode="aspectFit"/>
-      <view class="tip-text"><text class="tip-name">我的减脂分享</text><text class="tip-desc">{{myShare ? myShare : '写下你的减脂心得'}}</text></view>
+      <view class="tip-text"><text class="tip-name">我的减脂日记</text><text class="tip-desc">{{diaryLatest ? diaryLatest : '记录今天的小确幸'}}</text></view>
       <text class="tip-arrow">›</text>
     </view>
   </view>
 
-  <!-- 弹层：我的减脂分享编辑 -->
-  <view class="mask" wx:if="{{tipsOpen}}" bindtap="closeTip">
+  <!-- 弹层：我的减脂日记 -->
+  <view class="mask" wx:if="{{diaryOpen}}" bindtap="closeDiary">
     <view class="sheet" catchtap="noop">
       <view class="sheet-head">
-        <text class="sheet-title">我的减脂分享</text>
-        <text class="sheet-close" bindtap="closeTip">✕</text>
+        <text class="sheet-title">我的减脂日记</text>
+        <text class="sheet-close" bindtap="closeDiary">✕</text>
       </view>
-      <textarea class="share-input" value="{{tipContent}}" bindinput="editShare" placeholder="写下你的减脂心得，分享给未来的自己" maxlength="300"/>
-      <button class="primary-button" bindtap="saveShare">保存</button>
+
+      <block wx:if="{{diaryView}}">
+        <view class="diary-view-date">{{diaryView.date}}</view>
+        <scroll-view scroll-y class="diary-view-body">
+          <text class="diary-view-text" user-select="true">{{diaryView.text}}</text>
+        </scroll-view>
+        <button class="ghost-button" bindtap="closeDiaryView">返回列表</button>
+      </block>
+
+      <block wx:else>
+        <view class="diary-editor">
+          <text class="diary-editor-date">{{today}}</text>
+          <textarea class="diary-input" value="{{diaryDraft}}" bindinput="onDiaryInput" placeholder="写下今天的减脂心情、饮食或运动小记…" maxlength="500"/>
+        </view>
+        <button class="primary-button" bindtap="saveDiary">保存今天的日记</button>
+
+        <view class="diary-history-head" wx:if="{{diaryList.length}}">历史日记（{{diaryList.length}}）</view>
+        <scroll-view scroll-y class="diary-list" wx:if="{{diaryList.length}}">
+          <view class="diary-item" wx:for="{{diaryList}}" wx:key="id" data-id="{{item.id}}" bindtap="viewDiary">
+            <text class="diary-item-date">{{item.date}}</text>
+            <text class="diary-item-preview">{{item.preview}}</text>
+            <text class="diary-item-arrow">›</text>
+          </view>
+        </scroll-view>
+        <view class="diary-empty" wx:else>还没有历史日记，写下第一篇吧～</view>
+      </block>
     </view>
   </view>
 </view>

@@ -1,4 +1,4 @@
-const { getProfile, getBodyRecords, getCheckins, getAllCheckins, addBodyRecord, addCheckin, today, saveProfile } = require('../../utils/store')
+const { getProfile, getBodyRecords, getCheckins, getAllCheckins, addBodyRecord, addCheckin, today, saveProfile, getDiary, upsertDiary } = require('../../utils/store')
 const cloud = require('../../utils/cloud')
 
 const TYPE_META = {
@@ -53,8 +53,8 @@ Page({
     startWeight: 0, progress: 0, continuousDays: 0,
     changeArrow: '', changeText: '--', changeClass: 'empty',
     grid: [], treatWeekCount: 0,
-    myShare: '',
-    tipsOpen: false, tipTab: '', tipContent: ''
+    diaryLatest: '',
+    diaryOpen: false, diaryList: [], diaryDraft: '', diaryView: null
   },
   onLoad() { this.refresh() },
   onShow() { this.refresh() },
@@ -90,12 +90,14 @@ Page({
     })
     const weekStart = weekStartStr()
     const treatWeekCount = getAllCheckins().filter(c => c.type === 'treat' && c.date >= weekStart).length
+    const diary = getDiary()
+    const diaryLatest = diary[0] ? diary[0].text : ''
     this.setData({
       greeting: greeting(), nickname: profile.nickname || '轻减小伙伴',
       today: today(), profile, current, target: profile.targetWeight,
       startWeight: profile.startWeight, progress: pct,
       changeArrow, changeText, changeClass,
-      continuousDays: continuous, grid, treatWeekCount, myShare: profile.myShare || ''
+      continuousDays: continuous, grid, treatWeekCount, diaryLatest
     })
     this.loadCloud()
   },
@@ -111,19 +113,32 @@ Page({
   },
   openTip(e) {
     const tab = e.currentTarget.dataset.tab
-    if (tab === 'share') {
-      this.setData({ tipsOpen: true, tipTab: 'share', tipContent: this.data.myShare })
+    if (tab === 'diary') {
+      this.openDiary()
     } else {
       wx.navigateTo({ url: `/pages/tipsList/tipsList?type=${tab}` })
     }
   },
-  editShare(e) { this.setData({ tipContent: e.detail.value }) },
-  saveShare() {
-    saveProfile({ myShare: this.data.tipContent })
-    this.setData({ tipsOpen: false })
+  openDiary() {
+    const list = getDiary().map(d => ({ ...d, preview: d.text.length > 20 ? d.text.slice(0, 20) + '…' : d.text }))
+    const todayEntry = list.find(d => d.date === today())
+    this.setData({ diaryOpen: true, diaryList: list, diaryDraft: todayEntry ? todayEntry.text : '', diaryView: null })
+  },
+  onDiaryInput(e) { this.setData({ diaryDraft: e.detail.value }) },
+  saveDiary() {
+    const text = (this.data.diaryDraft || '').trim()
+    if (!text) { wx.showToast({ title: '写点什么吧～', icon: 'none' }); return }
+    const list = upsertDiary(text).map(d => ({ ...d, preview: d.text.length > 20 ? d.text.slice(0, 20) + '…' : d.text }))
+    this.setData({ diaryList: list, diaryDraft: '', diaryOpen: false })
     wx.showToast({ title: '已保存', icon: 'success' })
   },
-  closeTip() { this.setData({ tipsOpen: false }) },
+  viewDiary(e) {
+    const id = e.currentTarget.dataset.id
+    const item = this.data.diaryList.find(d => d.id === id)
+    if (item) this.setData({ diaryView: item })
+  },
+  closeDiaryView() { this.setData({ diaryView: null }) },
+  closeDiary() { this.setData({ diaryOpen: false }) },
   noop() {},
   async loadCloud() {
     if (!cloud.enabled()) return
