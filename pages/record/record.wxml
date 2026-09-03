@@ -64,12 +64,18 @@
   <view class="card weight">
     <text class="weight-label">当前体重</text>
     <view class="weight-row">
-      <view class="weight-value">
-        <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input" bindblur="saveWeight" style="width:{{inputWidth}}rpx;"/>
-        <text class="weight-unit">kg</text>
+      <view class="weight-left">
+        <view class="weight-value">
+          <input type="digit" placeholder="" value="{{weight}}" data-key="weight" bindinput="input" bindblur="saveWeight" style="width:{{inputWidth}}rpx;"/>
+          <text class="weight-unit">kg</text>
+          <view class="bmi-badge">
+            <text class="bmi-text">BMI {{bmiValue}}</text>
+          </view>
+        </view>
       </view>
-      <view class="bmi-badge">
-        <text class="bmi-text">BMI {{bmiValue}}</text>
+      <view class="day-badge">
+        <text class="day-text">已打卡</text>
+        <text class="day-count">{{dayCount}}天</text>
       </view>
     </view>
     <text class="weight-loss">已累计减重 {{weightLoss}}kg</text>
