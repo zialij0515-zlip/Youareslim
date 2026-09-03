@@ -3,7 +3,7 @@
     {
       "name": "dailyRemind",
       "type": "timer",
-      "config": "0 0 20 * * * *"
+      "config": "0 0 20 * * *"
     }
   ]
 }
