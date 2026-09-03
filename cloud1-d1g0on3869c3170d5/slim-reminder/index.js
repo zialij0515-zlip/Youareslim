@@ -47,6 +47,9 @@ async function getAccessToken() {
   if (!APPID || !APPSECRET) {
     throw new Error('缺少 APPID 或 APPSECRET 环境变量，请去云函数配置里填写')
   }
+  // 日志脱敏：只打印长度和首尾，确认环境变量读到了什么
+  console.log('[reminder] APPID 长度', APPID ? APPID.length : 0, '首尾', APPID ? `${APPID.slice(0, 4)}...${APPID.slice(-4)}` : '空')
+  console.log('[reminder] APPSECRET 长度', APPSECRET ? APPSECRET.length : 0, '首尾', APPSECRET ? `${APPSECRET.slice(0, 4)}...${APPSECRET.slice(-4)}` : '空')
   const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`
   const res = JSON.parse(await httpGet(url))
   if (!res.access_token) {
