@@ -12,7 +12,7 @@
 - `utils/cloud.js`：`uploadImages()` 路径改为按用户隔离 `checkins/{openid}/{date}_{ts}_{idx}.jpg`。
 - `app.js`：移除硬编码 env，改用 `cloud.init()` 单一来源。
 - 云函数 `cloud1-d1g0on3869c3170d5/slim-login`：返回调用方 openid。
-- 云函数 `cloud1-d1g0on3869c3170d5/slim-init`：批量创建 5 个集合（见步骤 2）。
+- 云函数 `cloud1-d1g0on3869c3170d5/slim-init`：批量创建 6 个集合（见步骤 2）。
 
 ---
 
@@ -24,11 +24,11 @@
 4. 上传完成后，在云函数 `slim-init` 上 **右键 → 测试 / 运行一次**（或本地调试调用），触发建集合。
    - 返回 `{ ok: true, results: [...] }` 即成功；已存在的集合会标记为 `exists`，可忽略。
 
-> 若不想用云函数，也可在「云开发 - 数据库」手动新建 5 个集合：`users` / `body_records` / `checkins` / `daily_summary` / `posters`。
+> 若不想用云函数，也可在「云开发 - 数据库」手动新建 6 个集合：`users` / `body_records` / `checkins` / `daily_summary` / `posters` / `diary`。
 
 ---
 
-## 3. 配置集合权限（关键，必做，5 次粘贴）
+## 3. 配置集合权限（关键，必做，6 次粘贴）
 
 在「云开发 - 数据库」中逐个点开集合 → 权限设置 → 选择「自定义安全规则」→ 粘贴以下 JSON：
 
@@ -39,7 +39,7 @@
 }
 ```
 
-对以下 5 个集合都设置一遍：**users / body_records / checkins / daily_summary / posters**。
+对以下 6 个集合都设置一遍：**users / body_records / checkins / daily_summary / posters / diary**。
 含义：只有记录的创建者本人能读写，普通用户之间数据完全隔离。
 
 ---

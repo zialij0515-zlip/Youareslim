@@ -116,4 +116,37 @@ async function getTodayCheckins(date) {
   }
 }
 
-module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins }
+// 日记同步到云端（集合 diary，权限按 _openid 隔离）
+async function syncDiary(entry) {
+  const db = getDb()
+  if (!db) return { synced: false }
+  try {
+    await db.collection('diary').add({
+      data: {
+        date: entry.date,
+        text: entry.text,
+        createdAt: entry.createdAt || entry.updatedAt || Date.now(),
+        updatedAt: entry.updatedAt || Date.now()
+      }
+    })
+    return { synced: true }
+  } catch (e) {
+    console.warn('[cloud] 同步日记失败', e)
+    return { synced: false, error: e }
+  }
+}
+
+// 拉取云端全部日记（按 openid 隔离，仅返回当前用户），失败返回空数组
+async function getCloudDiary() {
+  const db = getDb()
+  if (!db) return []
+  try {
+    const res = await db.collection('diary').get()
+    return (res.data || []).slice().sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+  } catch (e) {
+    console.warn('[cloud] 读取日记失败', e)
+    return []
+  }
+}
+
+module.exports = { ENV_ID, enabled, init, getOpenid, uploadImages, getDb, syncCheckin, syncBodyRecord, syncProfile, getLatestBodyRecord, getTodayCheckins, syncDiary, getCloudDiary }

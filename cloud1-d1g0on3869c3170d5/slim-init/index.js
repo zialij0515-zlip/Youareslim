@@ -2,8 +2,8 @@ const cloud = require('wx-server-sdk')
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
-// 需要创建的 5 个集合（权限在控制台按 openid 隔离设置，见 docs/cloud-development-setup.md）
-const COLLECTIONS = ['users', 'body_records', 'checkins', 'daily_summary', 'posters']
+// 需要创建的 6 个集合（权限在控制台按 openid 隔离设置，见 docs/cloud-development-setup.md）
+const COLLECTIONS = ['users', 'body_records', 'checkins', 'daily_summary', 'posters', 'diary']
 
 // 部署后在开发者工具「云开发 - 云函数」右键运行一次即可批量建集合
 exports.main = async (event, context) => {

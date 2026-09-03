@@ -1,4 +1,4 @@
-const { getProfile, getBodyRecords, getCheckins, getAllCheckins, addBodyRecord, addCheckin, today, saveProfile, getDiary, upsertDiary } = require('../../utils/store')
+const { getProfile, getBodyRecords, getCheckins, getAllCheckins, addBodyRecord, addCheckin, today, saveProfile, getDiary, upsertDiary, mergeDiary } = require('../../utils/store')
 const cloud = require('../../utils/cloud')
 
 const TYPE_META = {
@@ -128,9 +128,13 @@ Page({
   saveDiary() {
     const text = (this.data.diaryDraft || '').trim()
     if (!text) { wx.showToast({ title: '写点什么吧～', icon: 'none' }); return }
-    const list = upsertDiary(text).map(d => ({ ...d, preview: d.text.length > 20 ? d.text.slice(0, 20) + '…' : d.text }))
+    const savedList = upsertDiary(text)
+    const list = savedList.map(d => ({ ...d, preview: d.text.length > 20 ? d.text.slice(0, 20) + '…' : d.text }))
     this.setData({ diaryList: list, diaryDraft: '', diaryOpen: false })
     wx.showToast({ title: '已保存', icon: 'success' })
+    // 同步到云端（按 openid 隔离）
+    const todayEntry = savedList.find(d => d.date === today())
+    if (cloud.enabled() && todayEntry) cloud.syncDiary(todayEntry)
   },
   viewDiary(e) {
     const id = e.currentTarget.dataset.id
@@ -158,6 +162,21 @@ Page({
       if (needRefresh) this.refresh()
     } catch (e) {
       console.warn('[home] 云端拉取失败，使用本地数据', e)
+    }
+    // 日记：拉取云端合并到本地，并把本地独有的补推到云端
+    try {
+      const cloudDiary = await cloud.getCloudDiary()
+      if (cloudDiary && cloudDiary.length) {
+        const local = getDiary()
+        mergeDiary(cloudDiary)
+        const cloudDates = new Set(cloudDiary.map(c => c.date))
+        for (const d of local) {
+          if (!cloudDates.has(d.date)) { await cloud.syncDiary(d) }
+        }
+        this.refresh()
+      }
+    } catch (e) {
+      console.warn('[home] 云端日记同步失败，使用本地数据', e)
     }
   }
 })

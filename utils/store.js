@@ -28,4 +28,24 @@ function upsertDiary(text) {
   write(KEYS.diary, list)
   return getDiary()
 }
-module.exports = { today, ensureProfile, getProfile, saveProfile, getBodyRecords, addBodyRecord, getCheckins, addCheckin, getAllCheckins, getDiary, upsertDiary }
+// 将云端日记合并进本地（按日期去重，updatedAt 较新的一方胜出），返回合并后列表
+function mergeDiary(cloudList) {
+  const local = read(KEYS.diary, [])
+  const map = {}
+  local.forEach(d => { map[d.date] = d })
+  cloudList.forEach(c => {
+    const ex = map[c.date]
+    if (!ex || (c.updatedAt || 0) > (ex.updatedAt || 0)) {
+      map[c.date] = {
+        id: c._id || c.id || `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        date: c.date, text: c.text,
+        createdAt: c.createdAt || c.updatedAt || 0,
+        updatedAt: c.updatedAt || 0
+      }
+    }
+  })
+  const merged = Object.values(map).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+  write(KEYS.diary, merged)
+  return merged
+}
+module.exports = { today, ensureProfile, getProfile, saveProfile, getBodyRecords, addBodyRecord, getCheckins, addCheckin, getAllCheckins, getDiary, upsertDiary, mergeDiary }
