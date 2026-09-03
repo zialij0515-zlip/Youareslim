@@ -24,8 +24,10 @@
         <view class="duration-row">
           <view wx:for="{{durationItems}}" wx:key="key" class="duration-item">
             <text class="duration-name">{{item.name}}</text>
-            <input class="duration-min" type="number" placeholder="" value="{{durations[item.key]}}" data-key="{{item.key}}" bindinput="inputDuration"/>
-            <text class="duration-unit">min</text>
+            <view class="duration-value">
+              <input class="duration-min" type="number" placeholder="" value="{{durations[item.key]}}" data-key="{{item.key}}" bindinput="inputDuration"/>
+              <text class="duration-unit">min</text>
+            </view>
           </view>
         </view>
       </view>
