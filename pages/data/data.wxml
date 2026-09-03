@@ -73,28 +73,3 @@
     </block>
   </view>
 </view>
-
-  <view class="card chart-card">
-    <canvas type="2d" id="chart" class="chart"></canvas>
-    <view wx:if="{{!hasData}}" class="empty">这个时间段还没有数据，先去记录吧～</view>
-  </view>
-
-  <text class="section-title">最近 7 次身体记录</text>
-  <view class="card trend">
-    <block wx:if="{{records.length}}">
-      <view wx:for="{{records}}" wx:key="date" class="row">
-        <text class="row-date">{{item.date}}</text>
-        <text class="row-weight">{{item.weight}} kg</text>
-        <text class="row-bmi">BMI {{item.bmi}}</text>
-      </view>
-    </block>
-    <block wx:else>
-      <view class="empty">暂无身体数据</view>
-    </block>
-  </view>
-
-  <view class="card disclosure">
-    <text class="disclosure-title">关于估算体脂率</text>
-    <text class="disclosure-body">它根据年龄、性别与 BMI 推算，适合观察变化趋势，不代表专业测量结果。</text>
-  </view>
-</view>
