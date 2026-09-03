@@ -29,17 +29,13 @@
 .mood-icon { width: 72rpx; height: 72rpx; }
 .mood-name { font-size: 24rpx; color: #6B6B6B; }
 
-/* 运动项目：多选 + 可填分钟 */
-.sport-options { display: flex; flex-direction: column; gap: 14rpx; }
-.sport-option { display: flex; align-items: center; gap: 14rpx; padding: 14rpx 18rpx; border-radius: 18rpx; background: #F8F8F4; border: 2rpx solid #ECECE6; }
+/* 运动项目：多选 */
+.sport-options { display: flex; flex-direction: column; gap: 12rpx; }
+.sport-option { display: flex; align-items: center; gap: 14rpx; padding: 12rpx 18rpx; border-radius: 18rpx; background: #F8F8F4; border: 2rpx solid #ECECE6; }
 .sport-option.selected { background: #EAF3EC; border-color: #BBD9C5; }
-.sport-check { width: 38rpx; height: 38rpx; border-radius: 50%; background: #fff; border: 2rpx solid #C9C9C0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26rpx; line-height: 1; flex: none; }
+.sport-check { width: 34rpx; height: 34rpx; border-radius: 50%; background: #fff; border: 2rpx solid #C9C9C0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24rpx; line-height: 1; flex: none; }
 .sport-option.selected .sport-check { background: #5E9B75; border-color: #5E9B75; }
-.sport-name { font-size: 28rpx; color: #4A5C51; flex: none; }
-.sport-plus { font-size: 28rpx; color: #9A9A90; }
-.sport-min { width: 96rpx; text-align: center; font-size: 28rpx; font-weight: 600; color: #5D4A49; background: #fff; border-radius: 12rpx; padding: 8rpx 0; }
-.sport-min[disabled] { color: #C2C2BA; background: #F2F2EE; }
-.sport-unit { font-size: 24rpx; color: #9A9A90; }
+.sport-name { font-size: 26rpx; color: #4A5C51; flex: none; }
 
 /* 已保存提示 */
 .saved-hint { margin: 18rpx 0 0; text-align: center; font-size: 24rpx; color: #5E9B75; font-weight: 600; }

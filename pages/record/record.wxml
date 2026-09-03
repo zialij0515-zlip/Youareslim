@@ -13,9 +13,6 @@
           <view wx:for="{{sportItems}}" wx:key="key" class="sport-option {{item.selected?'selected':''}}" data-key="{{item.key}}" bindtap="toggleSport">
             <view class="sport-check"><text wx:if="{{item.selected}}">✓</text></view>
             <text class="sport-name">{{item.name}}</text>
-            <text class="sport-plus">+</text>
-            <input class="sport-min" type="number" placeholder="XX" value="{{item.minutes}}" disabled="{{!item.selected}}" data-key="{{item.key}}" bindinput="inputSport"/>
-            <text class="sport-unit">min</text>
           </view>
         </view>
       </view>

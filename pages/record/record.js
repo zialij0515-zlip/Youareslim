@@ -18,7 +18,6 @@ Page({
     this.setData({activeType:t,...state,moods:sport?this.data.sportMoods:this.data.mealMoods,notePlaceholder:sport?'选择今天的运动项目':'记录食物和心情',sampleImages:sport?['/assets/record/sport1.png','/assets/record/sport2.png']:['/assets/record/food1.png','/assets/record/food2.png']});
   },
   toggleSport(e){ const key=e.currentTarget.dataset.key; const items=this.data.sportItems.map(it=>it.key===key?{...it,selected:!it.selected}:it); this.setData({sportItems:items,saved:false}); },
-  inputSport(e){ const key=e.currentTarget.dataset.key; const val=e.detail.value; const items=this.data.sportItems.map(it=>it.key===key?{...it,minutes:val}:it); this.setData({sportItems:items,saved:false}); },
   chooseMood(e){ this.setData({mood:e.currentTarget.dataset.key, saved:false}) },
   input(e){ const key=e.currentTarget.dataset.key; const value=e.detail.value; const patch={[key]:value, saved:false}; if(key==='weight'){ patch.inputWidth=this.weightInputWidth(value); this.setData(patch,()=>this.computeWeightStats()); } else { this.setData(patch); } },
   chooseImage(){ wx.chooseMedia({count:3,mediaType:['image'],success:res=>this.setData({images:res.tempFiles.map(f=>f.tempFilePath), saved:false})}) },
