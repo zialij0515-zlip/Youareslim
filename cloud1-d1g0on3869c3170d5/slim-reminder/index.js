@@ -86,7 +86,15 @@ function beijingTimeString(d = new Date()) {
   return `${cst.getFullYear()}年${cst.getMonth() + 1}月${cst.getDate()}日 ${pad(cst.getHours())}:${pad(cst.getMinutes())}`
 }
 
-// 每日定时触发：向所有授权过订阅消息的用户推送打卡提醒
+// 获取北京时间 yyyy-mm-dd
+function todayBeijing(d = new Date()) {
+  const offsetMin = d.getTimezoneOffset()
+  const cst = new Date(d.getTime() + (offsetMin + 480) * 60000)
+  const pad = n => n.toString().padStart(2, '0')
+  return `${cst.getFullYear()}-${pad(cst.getMonth() + 1)}-${pad(cst.getDate())}`
+}
+
+// 每日定时触发：向当天还未打卡的授权用户推送打卡提醒
 exports.main = async (event) => {
   if (!TEMPLATE_ID) {
     return { skipped: true, reason: 'TEMPLATE_ID 未配置' }
@@ -94,11 +102,22 @@ exports.main = async (event) => {
   if (!APPID || !APPSECRET) {
     return { skipped: true, reason: '缺少 APPID/APPSECRET 环境变量，请去云函数配置里填写' }
   }
+  const today = todayBeijing()
+  const timeStr = beijingTimeString()
   const subs = await db.collection('reminder_subs').get()
   let sent = 0
-  const timeStr = beijingTimeString()
+  let skipped = 0
   for (const s of subs.data) {
     try {
+      // 查询该用户今天是否已打卡
+      const checkins = await db.collection('checkins')
+        .where({ _openid: s._openid, date: today })
+        .get()
+      if ((checkins.data || []).length > 0) {
+        console.log('[reminder] 已打卡，跳过', s._openid, today)
+        skipped++
+        continue
+      }
       await sendSubscribeMsg(s._openid, {
         thing26: { value: '今天还没打卡哦' },
         time23: { value: timeStr }
@@ -108,5 +127,5 @@ exports.main = async (event) => {
       console.warn('[reminder] 发送给', s._openid, '失败', e)
     }
   }
-  return { total: subs.data.length, sent }
+  return { total: subs.data.length, sent, skipped, today }
 }
