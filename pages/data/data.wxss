@@ -35,8 +35,8 @@
 .seg.selected { background: #4F8567; color: #FFFFFF; font-weight: 600; }
 .segment.right .seg.selected { background: #FFFFFF; color: #4F8567; border: 1rpx solid #4F8567; }
 
-.chart-card { padding: 16rpx; min-height: 360rpx; display: flex; align-items: stretch; }
-.chart { width: 100%; height: 420rpx; }
+.chart-card { position: relative; z-index: 0; overflow: hidden; padding: 16rpx; min-height: 360rpx; display: flex; align-items: stretch; }
+.chart { position: absolute; top: 0; left: 0; width: 100%; height: 420rpx; transform: translateZ(0); }
 
 .trend { padding: 8rpx 28rpx; }
 .row { display: flex; justify-content: space-between; padding: 25rpx 0; border-bottom: 1rpx solid #EEF0EB; font-size: 26rpx; }

@@ -5,6 +5,7 @@
   border-radius: 36rpx;
   box-shadow: 0 12rpx 40rpx rgba(79, 133, 103, 0.18);
   background: linear-gradient(150deg, #D9EDDB, #FFF8E9);
+  transform: translateZ(0);
 }
 .hint {
   display: block;
